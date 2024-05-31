@@ -1,9 +1,9 @@
 package vista;
 
-import java.awt.Color;
-
+import java.awt.*;
 import javax.swing.*;
-//import java.awt.*;
+import javax.swing.table.DefaultTableModel;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -89,6 +89,7 @@ public class Interfaz {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
+                System.exit(0);
             }
         });
 
@@ -202,7 +203,7 @@ public class Interfaz {
         revista.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                
+                altaRevista();
             }
         });
         articulo =  new JButton("Articulo");
@@ -210,7 +211,7 @@ public class Interfaz {
         articulo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                
+                altaArticulo();
             }
         });
         frame.add(libro);
@@ -283,6 +284,127 @@ public class Interfaz {
 
         frame.setVisible(true);
     }
+
+    public void altaRevista(){
+        JFrame frame = new JFrame();
+        JLabel id,titulo,editores,editorial,volumen,disponible;
+        JTextField campoID,campotitulo,campoeditores,campoeditorial,campovolumen,campodisponible;
+
+        frame.setTitle("Alta Revista");
+        frame.setSize(700,500);
+        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        frame.setResizable(true);
+        frame.setLayout(null);
+        frame.getContentPane().setBackground(Color.GRAY);
+
+        id = new JLabel("ID de la Revista:");
+        id.setBounds(10, 10,70,20);
+        campoID = new JTextField();
+        campoID.setBounds(150, 10,100,20);
+
+        titulo = new JLabel("Titulo:");
+        titulo.setBounds(10, 50,130,20);
+        campotitulo = new JTextField();
+        campotitulo.setBounds(150, 50,100,20);
+
+        editores = new JLabel("Editores:");
+        editores.setBounds(10, 90,130,20);
+        campoeditores = new JTextField();
+        campoeditores.setBounds(150, 90,100,20);
+
+        editorial = new JLabel("Editorial:");
+        editorial.setBounds(10, 130,130,20);
+        campoeditorial = new JTextField();
+        campoeditorial.setBounds(150, 130,100,20);
+
+        volumen = new JLabel("Volumen:");
+        volumen.setBounds(10, 170,130,20);
+        campovolumen = new JTextField();
+        campovolumen.setBounds(150, 170,100,20);
+        
+        disponible = new JLabel("Disponible:");
+        disponible.setBounds(10, 210,130,20);
+        campodisponible = new JTextField();
+        campodisponible.setBounds(150, 210,100,20);
+
+
+        frame.add(id);
+        frame.add(campoID);
+        frame.add(titulo);
+        frame.add(campotitulo);
+        frame.add(editores);
+        frame.add(campoeditores);
+        frame.add(editorial);
+        frame.add(campoeditorial);
+        frame.add(volumen);
+        frame.add(campovolumen);
+        frame.add(disponible);
+        frame.add(campodisponible);
+
+
+        frame.setVisible(true);
+    }
+
+    public void altaArticulo(){
+        JFrame frame = new JFrame();
+        JLabel id,titulo,autor,doi,fecha,disponible;
+        JTextField campoID,campotitulo,campoautor,campodoi,campofecha,campodisponible;
+
+        frame.setTitle("Alta Articulo");
+        frame.setSize(700,500);
+        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        frame.setResizable(true);
+        frame.setLayout(null);
+        frame.getContentPane().setBackground(Color.GRAY);
+
+        id = new JLabel("ID de la Revista:");
+        id.setBounds(10, 10,70,20);
+        campoID = new JTextField();
+        campoID.setBounds(150, 10,100,20);
+
+        titulo = new JLabel("Titulo:");
+        titulo.setBounds(10, 50,130,20);
+        campotitulo = new JTextField();
+        campotitulo.setBounds(150, 50,100,20);
+
+        autor = new JLabel("Autor:");
+        autor.setBounds(10, 90,130,20);
+        campoautor = new JTextField();
+        campoautor.setBounds(150, 90,100,20);
+
+        doi = new JLabel("DOI:");
+        doi.setBounds(10, 130,130,20);
+        campodoi = new JTextField();
+        campodoi.setBounds(150, 130,100,20);
+
+        fecha = new JLabel("Fecha:");
+        fecha.setBounds(10, 170,130,20);
+        campofecha = new JTextField();
+        campofecha.setBounds(150, 170,100,20);
+        
+        disponible = new JLabel("Disponible:");
+        disponible.setBounds(10, 210,130,20);
+        campodisponible = new JTextField();
+        campodisponible.setBounds(150, 210,100,20);
+
+
+        frame.add(id);
+        frame.add(campoID);
+        frame.add(titulo);
+        frame.add(campotitulo);
+        frame.add(autor);
+        frame.add(campoautor);
+        frame.add(doi);
+        frame.add(campodoi);
+        frame.add(fecha);
+        frame.add(campofecha);
+        frame.add(disponible);
+        frame.add(campodisponible);
+
+
+        frame.setVisible(true);
+    }
+
     public void prestamos(){
         JFrame frame = new JFrame();
         JLabel idusuario,idliteratura;
@@ -315,17 +437,39 @@ public class Interfaz {
     }
     public void devolver(){
         JFrame frame = new JFrame();
-        frame.setTitle("Devolver");
+        JLabel idusuario,idliteratura;
+        JTextField campoID,campoliteratura;
+
+        frame.setTitle("Prestamos");
         frame.setSize(700,500);
         frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         frame.setResizable(true);
         frame.setLayout(null);
         frame.getContentPane().setBackground(Color.GRAY);
 
+        idusuario = new JLabel("ID Usuario:");
+        idusuario.setBounds(10, 10,70,20);
+        campoID = new JTextField();
+        campoID.setBounds(200, 10,100,20);
+
+        idliteratura = new JLabel("ID Literatura a regresar:");
+        idliteratura.setBounds(10, 50,180,20);
+        campoliteratura = new JTextField();
+        campoliteratura.setBounds(200, 50,100,20);
+
+        
+        frame.add(idusuario);
+        frame.add(campoID);
+        frame.add(idliteratura);
+        frame.add(campoliteratura);
 
         frame.setVisible(true);
     }
     public void consulta(){
+        JButton mUsuario;
+        JButton mLiteratura;
+        JButton bUsuario;
+        JButton bLiteratura;
         JFrame frame = new JFrame();
         frame.setTitle("Consulta");
         frame.setSize(700,500);
@@ -334,8 +478,59 @@ public class Interfaz {
         frame.setLayout(null);
         frame.getContentPane().setBackground(Color.GRAY);
 
-
+        mUsuario =  new JButton("Mostrar Usuarios");
+        mUsuario.setBounds(10, 120, 160, 25);
+        mUsuario.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mostrarUsuario();
+            }
+        });
+        mLiteratura =  new JButton("Mostrar Literatura");
+        mLiteratura.setBounds(10, 150, 160, 25);
+        mLiteratura.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                
+            }
+        });
+        bUsuario =  new JButton("Buscar Usuario");
+        bUsuario.setBounds(10, 180, 160, 25);
+        bUsuario.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                
+            }
+        });
+        bLiteratura =  new JButton("Buscar Literatura");
+        bLiteratura.setBounds(10, 210, 160, 25);
+        bLiteratura.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                
+            }
+        });
+        frame.add(mUsuario);
+        frame.add(mLiteratura);
+        frame.add(bUsuario);
+        frame.add(bLiteratura);
         frame.setVisible(true);
+    }
+    public void mostrarUsuario(){
+        JFrame dataFrame = new JFrame("Usuarios Registrados");
+        dataFrame.setSize(700, 500);
+        dataFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        dataFrame.setResizable(true);
+        dataFrame.setLayout(new BorderLayout());
+        dataFrame.getContentPane().setBackground(Color.GRAY);
+
+        DefaultTableModel tablaModelo = new DefaultTableModel(new String[]{"ID", "Nombre", "Edad", "Libros Prestados"}, 0);
+        JTable usuariosTabla = new JTable(tablaModelo);
+        JScrollPane scrollPane = new JScrollPane(usuariosTabla);
+        dataFrame.add(scrollPane, BorderLayout.CENTER);
+
+        dataFrame.setVisible(true);
+
     }
     public void modificar(){
         JFrame frame = new JFrame();
