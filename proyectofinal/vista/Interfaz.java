@@ -119,7 +119,7 @@ public class Interfaz {
         usuario.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                
+                altaUsuario();
             }
         });
         literatura =  new JButton("Literatura");
@@ -127,11 +127,160 @@ public class Interfaz {
         literatura.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                
+                altaLiteratura();
             }
         });
         frame.add(usuario);
         frame.add(literatura);
+        frame.setVisible(true);
+    }
+    public void altaUsuario(){
+        JFrame frame = new JFrame();
+        JLabel id,nombre,edad,librosprestados;
+        JTextField campoID,camponombre,campoedad,campolibrosprestados;
+
+        frame.setTitle("Alta Usuario");
+        frame.setSize(700,500);
+        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        frame.setResizable(true);
+        frame.setLayout(null);
+        frame.getContentPane().setBackground(Color.GRAY);
+
+        id = new JLabel("ID Usuario:");
+        id.setBounds(10, 10,70,20);
+        campoID = new JTextField();
+        campoID.setBounds(150, 10,100,20);
+
+        nombre = new JLabel("Nombre:");
+        nombre.setBounds(10, 50,130,20);
+        camponombre = new JTextField();
+        camponombre.setBounds(150, 50,100,20);
+
+        edad = new JLabel("Edad:");
+        edad.setBounds(10, 90,130,20);
+        campoedad = new JTextField();
+        campoedad.setBounds(150, 90,100,20);
+
+        librosprestados = new JLabel("Libros prestados:");
+        librosprestados.setBounds(10, 130,130,20);
+        campolibrosprestados = new JTextField();
+        campolibrosprestados.setBounds(150, 130,100,20);
+
+        frame.add(id);
+        frame.add(campoID);
+        frame.add(nombre);
+        frame.add(camponombre);
+        frame.add(edad);
+        frame.add(campoedad);
+        frame.add(librosprestados);
+        frame.add(campolibrosprestados);
+
+        frame.setVisible(true);
+    }
+    public void altaLiteratura(){
+        JButton libro;
+        JButton revista;
+        JButton articulo;
+        JFrame frame = new JFrame();
+        frame.setTitle("Altas");
+        frame.setSize(700,500);
+        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        frame.setResizable(true);
+        frame.setLayout(null);
+        frame.getContentPane().setBackground(Color.GRAY);
+
+        libro =  new JButton("Libro");
+        libro.setBounds(10, 150, 100, 25);
+        libro.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                altaLibro();
+            }
+        });
+        revista =  new JButton("Revista");
+        revista.setBounds(10, 180, 100, 25);
+        revista.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                
+            }
+        });
+        articulo =  new JButton("Articulo");
+        articulo.setBounds(10, 210, 100, 25);
+        articulo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                
+            }
+        });
+        frame.add(libro);
+        frame.add(revista);
+        frame.add(articulo);
+        frame.setVisible(true);
+    }
+    public void altaLibro(){
+        JFrame frame = new JFrame();
+        JLabel id,titulo,autor,isbn,genero,editorial,disponible;
+        JTextField campoID,campotitulo,campoautor,campoisbn,campogenero,campoeditorial,campodisponible;
+
+        frame.setTitle("Alta Libro");
+        frame.setSize(700,500);
+        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        frame.setResizable(true);
+        frame.setLayout(null);
+        frame.getContentPane().setBackground(Color.GRAY);
+
+        id = new JLabel("ID del libro:");
+        id.setBounds(10, 10,70,20);
+        campoID = new JTextField();
+        campoID.setBounds(150, 10,100,20);
+
+        titulo = new JLabel("Titulo:");
+        titulo.setBounds(10, 50,130,20);
+        campotitulo = new JTextField();
+        campotitulo.setBounds(150, 50,100,20);
+
+        autor = new JLabel("Autor:");
+        autor.setBounds(10, 90,130,20);
+        campoautor = new JTextField();
+        campoautor.setBounds(150, 90,100,20);
+
+        isbn = new JLabel("ISBN:");
+        isbn.setBounds(10, 130,130,20);
+        campoisbn = new JTextField();
+        campoisbn.setBounds(150, 130,100,20);
+
+        genero = new JLabel("Genero:");
+        genero.setBounds(10, 170,130,20);
+        campogenero = new JTextField();
+        campogenero.setBounds(150, 170,100,20);
+        
+        editorial = new JLabel("Editorial:");
+        editorial.setBounds(10, 210,130,20);
+        campoeditorial = new JTextField();
+        campoeditorial.setBounds(150, 210,100,20);
+
+        disponible = new JLabel("Disponible:");
+        disponible.setBounds(10, 250,130,20);
+        campodisponible = new JTextField();
+        campodisponible.setBounds(150, 250,100,20);
+
+        frame.add(id);
+        frame.add(campoID);
+        frame.add(titulo);
+        frame.add(campotitulo);
+        frame.add(autor);
+        frame.add(campoautor);
+        frame.add(isbn);
+        frame.add(campoisbn);
+        frame.add(genero);
+        frame.add(campogenero);
+        frame.add(editorial);
+        frame.add(campoeditorial);
+        frame.add(disponible);
+        frame.add(campodisponible);
+
+
         frame.setVisible(true);
     }
     public void prestamos(){
