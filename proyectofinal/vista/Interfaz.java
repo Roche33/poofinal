@@ -34,7 +34,7 @@ public class Interfaz {
 
 
         altas = new JButton("Altas");
-        altas.setBounds(10, 40, 100, 25);
+        altas.setBounds(10, 10, 100, 25);
         altas.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -136,6 +136,9 @@ public class Interfaz {
     }
     public void prestamos(){
         JFrame frame = new JFrame();
+        JLabel idusuario,idliteratura;
+        JTextField campoID,campoliteratura;
+
         frame.setTitle("Prestamos");
         frame.setSize(700,500);
         frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
@@ -143,6 +146,21 @@ public class Interfaz {
         frame.setLayout(null);
         frame.getContentPane().setBackground(Color.GRAY);
 
+        idusuario = new JLabel("ID Usuario:");
+        idusuario.setBounds(10, 10,70,20);
+        campoID = new JTextField();
+        campoID.setBounds(150, 10,100,20);
+
+        idliteratura = new JLabel("ID Literatura:");
+        idliteratura.setBounds(10, 50,130,20);
+        campoliteratura = new JTextField();
+        campoliteratura.setBounds(150, 50,100,20);
+
+        
+        frame.add(idusuario);
+        frame.add(campoID);
+        frame.add(idliteratura);
+        frame.add(campoliteratura);
 
         frame.setVisible(true);
     }
@@ -196,6 +214,6 @@ public class Interfaz {
     }
     public static void main(String[] args) {
         new Interfaz();
-        //loque sea
+        
     }
 }
