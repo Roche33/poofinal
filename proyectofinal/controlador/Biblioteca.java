@@ -36,7 +36,7 @@ public class Biblioteca {
     }
     public void eliminarLiteratura(String idLiteratura){
         for(Literatura l: literaturas){
-            if(l.getID().equals(idLiteratura) && !l.isDisponible()){
+            if(l.getID().equals(idLiteratura) && l.isDisponible()){
                 literaturas.remove(l);
                 break;
             }
