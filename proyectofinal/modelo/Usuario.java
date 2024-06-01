@@ -1,20 +1,19 @@
 package modelo;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+//import java.util.ArrayList;
 import java.util.List;
 
 public class Usuario implements Serializable{
     private String id;
     private String nombre;
     private int edad;
-    private List<Libro> librosPrestados;
+    private List<Literatura> librosPrestados;
 
-    public Usuario(String id, String nombre, int edad, List<Libro> librosPrestados){
+    public Usuario(String id, String nombre, int edad){
         this.id = id;
         this.nombre = nombre;
         this.edad = edad;
-        this.librosPrestados = new ArrayList<>();
     }
     public String getID(){
         return id;
@@ -34,12 +33,12 @@ public class Usuario implements Serializable{
     public void setEdad(int edad){
         this.edad = edad;
     }
-    public List<Libro> getLibro(){
+    public List<Literatura> getLibro(){
         return librosPrestados;
     }
-    public void prestarLibro(Libro libro){
+    public void prestarLibro(Literatura literatura){
         if(librosPrestados.size() < 2){
-            librosPrestados.add(libro);
+            librosPrestados.add(literatura);
         }
     }
 }
