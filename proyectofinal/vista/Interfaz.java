@@ -354,18 +354,34 @@ public class Interfaz {
         volumen.setBounds(10, 170,130,20);
         JTextField campovolumen = new JTextField();
         campovolumen.setBounds(150, 170,100,20);
-        
-        JLabel disponible = new JLabel("Disponible:");
-        disponible.setBounds(10, 210,130,20);
-        JTextField campodisponible = new JTextField();
-        campodisponible.setBounds(150, 210,100,20);
 
         JButton bGuardar =  new JButton("Guardar");
         bGuardar.setBounds(10, 250, 100, 25);
         bGuardar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                
+                try {
+                    String id = campoID.getText();
+                    String titulo = campotitulo.getText();
+                    String editores = campoeditores.getText();
+                    String editorial = campoeditorial.getText();
+                    int volumen = Integer.parseInt(campovolumen.getText());
+                    
+        
+                    Revista revista = new Revista( id, titulo, editores, editorial, volumen);
+                    biblioteca.registrarLiteratura(revista);
+        
+                    campoID.setText("");
+                    campotitulo.setText("");
+                    campoeditores.setText("");
+                    campoeditorial.setText("");
+                    campovolumen.setText("");
+                    
+                    frame.dispose();
+        
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(null, "Agregar datos correctos", "Error", JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
 
@@ -379,8 +395,6 @@ public class Interfaz {
         frame.add(campoeditorial);
         frame.add(volumen);
         frame.add(campovolumen);
-        frame.add(disponible);
-        frame.add(campodisponible);
         frame.add(bGuardar);
 
 
@@ -421,18 +435,34 @@ public class Interfaz {
         fecha.setBounds(10, 170,130,20);
         JTextField campofecha = new JTextField();
         campofecha.setBounds(150, 170,100,20);
-        
-        JLabel disponible = new JLabel("Disponible:");
-        disponible.setBounds(10, 210,130,20);
-        JTextField campodisponible = new JTextField();
-        campodisponible.setBounds(150, 210,100,20);
 
         JButton bGuardar =  new JButton("Guardar");
         bGuardar.setBounds(10, 250, 100, 25);
         bGuardar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                
+                try {
+                    String id = campoID.getText();
+                    String titulo = campotitulo.getText();
+                    String autor = campoautor.getText();
+                    String doi = campodoi.getText();
+                    String fecha = campofecha.getText();
+                    
+        
+                    Articulo articulo = new Articulo( id, titulo, autor, doi, fecha);
+                    biblioteca.registrarLiteratura(articulo);
+        
+                    campoID.setText("");
+                    campotitulo.setText("");
+                    campoautor.setText("");
+                    campodoi.setText("");
+                    campofecha.setText("");
+                    
+                    frame.dispose();
+        
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(null, "Agregar datos correctos", "Error", JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
 
@@ -446,8 +476,6 @@ public class Interfaz {
         frame.add(campodoi);
         frame.add(fecha);
         frame.add(campofecha);
-        frame.add(disponible);
-        frame.add(campodisponible);
         frame.add(bGuardar);
 
         frame.setVisible(true);
@@ -770,7 +798,13 @@ public class Interfaz {
         bUsuario.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                
+                try{
+                    String idUsuario = campoUsuario.getText();
+                    biblioteca.eliminarUsuario(idUsuario);
+                    frame.dispose();
+                }catch(NumberFormatException ex){
+                    JOptionPane.showMessageDialog(null, "Agregar datos correctos", "Error", JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
 
@@ -800,7 +834,13 @@ public class Interfaz {
         bLiteratura.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                
+                try{
+                    String idLiteratura = campoLiteratura.getText();
+                    biblioteca.eliminarLiteratura(idLiteratura);
+                    frame.dispose();
+                }catch(NumberFormatException ex){
+                    JOptionPane.showMessageDialog(null, "Agregar datos correctos", "Error", JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
 

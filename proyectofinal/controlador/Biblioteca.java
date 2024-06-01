@@ -24,6 +24,26 @@ public class Biblioteca {
         usuarios.add(usuario);
         guardarRegistros();
     }
+    public void eliminarUsuario(String idUsuario){
+        for(Usuario u: usuarios){
+            if(u.getID().equals(idUsuario)){
+                usuarios.remove(u);
+                break;
+            }
+        }
+        
+        guardarRegistros();
+    }
+    public void eliminarLiteratura(String idLiteratura){
+        for(Literatura l: literaturas){
+            if(l.getID().equals(idLiteratura) && !l.isDisponible()){
+                literaturas.remove(l);
+                break;
+            }
+        }
+        
+        guardarRegistros();
+    }
     public void registrarLiteratura(Literatura literatura){
         literaturas.add(literatura);
         guardarRegistros();
