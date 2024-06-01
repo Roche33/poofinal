@@ -507,7 +507,7 @@ public class Interfaz {
         bLiteratura.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                
+                buscarLiteratura();
             }
         });
         frame.add(mUsuario);
@@ -602,14 +602,51 @@ public class Interfaz {
                 
             }
         });
-        
+
         frame.add(nUsuario);
         frame.add(campoNombre);
         frame.add(bUsuario);
         frame.setVisible(true);
     }
-    public void modificar(){
+    public void buscarLiteratura(){
+        JButton bLiteratura;
         JFrame frame = new JFrame();
+        JLabel nLiteratura;
+        JTextField campoLiteratura;
+
+        frame.setTitle("Buscar Literatura");
+        frame.setSize(700,600);
+        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        frame.setResizable(true);
+        frame.setLayout(null);
+        frame.getContentPane().setBackground(Color.GRAY);
+
+        nLiteratura = new JLabel("Nombre de la literatura:");
+        nLiteratura.setBounds(10, 10,150,20);
+        campoLiteratura = new JTextField();
+        campoLiteratura.setBounds(180, 10,200,20);
+
+        bLiteratura =  new JButton("Buscar");
+        bLiteratura.setBounds(10, 50, 100, 25);
+        bLiteratura.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                
+            }
+        });
+
+        frame.add(nLiteratura);
+        frame.add(campoLiteratura);
+        frame.add(bLiteratura);
+        frame.setVisible(true);
+    }
+
+    public void modificar(){
+        JButton bModificar;
+        JFrame frame = new JFrame();
+        JLabel idliteratura;
+        JTextField campoliteratura;
+
         frame.setTitle("Modificar");
         frame.setSize(700,600);
         frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
@@ -618,9 +655,28 @@ public class Interfaz {
         frame.getContentPane().setBackground(Color.GRAY);
 
 
+        idliteratura = new JLabel("ID Literatura a modificar:");
+        idliteratura.setBounds(10, 40,180,20);
+        campoliteratura = new JTextField();
+        campoliteratura.setBounds(200, 40,100,20);
+
+        bModificar =  new JButton("Buscar");
+        bModificar.setBounds(10, 80, 100, 25);
+        bModificar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                
+            }
+        });
+
+        frame.add(idliteratura);
+        frame.add(campoliteratura);
+        frame.add(bModificar);
         frame.setVisible(true);
     }
     public void eliminar(){
+        JButton bUsuario;
+        JButton bLiteratura;
         JFrame frame = new JFrame();
         frame.setTitle("Eliminar");
         frame.setSize(700,600);
@@ -629,7 +685,92 @@ public class Interfaz {
         frame.setLayout(null);
         frame.getContentPane().setBackground(Color.GRAY);
 
+        bUsuario =  new JButton("Eliminar Usuario");
+        bUsuario.setBounds(10, 50, 150, 25);
+        bUsuario.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                eliminarUsuario();
+            }
+        });
+        bLiteratura =  new JButton("Eliminar Literatura");
+        bLiteratura.setBounds(10, 100, 150, 25);
+        bLiteratura.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                eliminarLiteratura();
+            }
+        });
 
+        frame.add(bUsuario);
+        frame.add(bLiteratura);
+        
+        frame.setVisible(true);
+    }
+    public void eliminarUsuario(){
+        JButton bUsuario;
+        JFrame frame = new JFrame();
+        JLabel idUsuario;
+        JTextField campoUsuario;
+
+        frame.setTitle("Eliminar Usuario");
+        frame.setSize(700,600);
+        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        frame.setResizable(true);
+        frame.setLayout(null);
+        frame.getContentPane().setBackground(Color.GRAY);
+
+
+        idUsuario = new JLabel("ID Usuario:");
+        idUsuario.setBounds(10, 40,180,20);
+        campoUsuario = new JTextField();
+        campoUsuario.setBounds(150, 40,100,20);
+
+        bUsuario =  new JButton("Eliminar");
+        bUsuario.setBounds(10, 80, 100, 25);
+        bUsuario.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                
+            }
+        });
+
+        frame.add(idUsuario);
+        frame.add(campoUsuario);
+        frame.add(bUsuario);
+        frame.setVisible(true);
+    }
+    public void eliminarLiteratura(){
+        JButton bLiteratura;
+        JFrame frame = new JFrame();
+        JLabel idLiteratura;
+        JTextField campoLiteratura;
+
+        frame.setTitle("Eliminar Literatura");
+        frame.setSize(700,600);
+        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        frame.setResizable(true);
+        frame.setLayout(null);
+        frame.getContentPane().setBackground(Color.GRAY);
+
+
+        idLiteratura = new JLabel("ID Literatura:");
+        idLiteratura.setBounds(10, 40,180,20);
+        campoLiteratura = new JTextField();
+        campoLiteratura.setBounds(150, 40,100,20);
+
+        bLiteratura =  new JButton("Eliminar");
+        bLiteratura.setBounds(10, 80, 100, 25);
+        bLiteratura.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                
+            }
+        });
+
+        frame.add(idLiteratura);
+        frame.add(campoLiteratura);
+        frame.add(bLiteratura);
         frame.setVisible(true);
     }
     public static void main(String[] args) {
