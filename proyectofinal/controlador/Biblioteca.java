@@ -31,8 +31,12 @@ public class Biblioteca {
     public void prestamoLiteratura(){
         //String idUsuario;
         //String idLit;
-
-        
+    }
+    public ArrayList<Usuario> getUsuario() {
+        return usuarios;
+    }
+    public ArrayList<Literatura> getLiteratura() {
+        return literaturas;
     }
 
 }

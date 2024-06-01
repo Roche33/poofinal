@@ -1,6 +1,8 @@
 package modelo;
 
-public class Literatura {
+import java.io.Serializable;
+
+public class Literatura implements Serializable{
     private String id;
     private String titulo;
     private boolean disponible;

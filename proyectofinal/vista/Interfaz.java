@@ -1,6 +1,6 @@
 package vista;
-//import modelo.*;
-//import controlador.*;
+import modelo.*;
+import controlador.*;
 
 import java.awt.*;
 import javax.swing.*;
@@ -10,7 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Interfaz {
-    //private Biblioteca biblioteca;
+    private Biblioteca biblioteca = new Biblioteca();
     
     public Interfaz(){
         JButton altas;
@@ -166,7 +166,22 @@ public class Interfaz {
         bGuardar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                
+                try {
+                    String id = campoID.getText();
+                    String nombre = camponombre.getText();
+                    int edad = Integer.parseInt(campoedad.getText());
+        
+                    Usuario usuario = new Usuario(id, nombre, edad);
+                    biblioteca.registrarUsuario(usuario);
+        
+                    campoID.setText("");
+                    camponombre.setText("");
+                    campoedad.setText("");
+                    frame.dispose();
+        
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(null, "Agregar datos correctos", "Error", JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
 
@@ -180,7 +195,6 @@ public class Interfaz {
 
         frame.setVisible(true);
     }
-    
     public void altaLiteratura(){
         JFrame frame = new JFrame();
         frame.setTitle("Altas");
@@ -259,17 +273,33 @@ public class Interfaz {
         JTextField campoeditorial = new JTextField();
         campoeditorial.setBounds(150, 210,100,20);
 
-        JLabel disponible = new JLabel("Disponible:");
-        disponible.setBounds(10, 250,130,20);
-        JTextField campodisponible = new JTextField();
-        campodisponible.setBounds(150, 250,100,20);
-
         JButton bGuardar =  new JButton("Guardar");
         bGuardar.setBounds(10, 290, 100, 25);
         bGuardar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                
+                try {
+                    String id = campoID.getText();
+                    String titulo = campotitulo.getText();
+                    String autor = campoautor.getText();
+                    String isbn = campoisbn.getText();
+                    String genero = campogenero.getText();
+                    String editorial = campoeditorial.getText();
+        
+                    Libro libro = new Libro( id, titulo,  autor,  isbn,  genero,  editorial);
+                    biblioteca.registrarLiteratura(libro);
+        
+                    campoID.setText("");
+                    campotitulo.setText("");
+                    campoautor.setText("");
+                    campoisbn.setText("");
+                    campogenero.setText("");
+                    campoeditorial.setText("");
+                    frame.dispose();
+        
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(null, "Agregar datos correctos", "Error", JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
 
@@ -285,8 +315,6 @@ public class Interfaz {
         frame.add(campogenero);
         frame.add(editorial);
         frame.add(campoeditorial);
-        frame.add(disponible);
-        frame.add(campodisponible);
         frame.add(bGuardar);
 
         frame.setVisible(true);
@@ -541,6 +569,10 @@ public class Interfaz {
         JScrollPane scrollPane = new JScrollPane(usuariosTabla);
         dataFrame.add(scrollPane, BorderLayout.CENTER);
 
+        for (Usuario u : biblioteca.getUsuario()) {
+            tablaModelo.addRow(new Object[]{u.getID(), u.getNombre(), u.getEdad(), u.getLibro()});
+        }
+
         dataFrame.setVisible(true);
 
     }
@@ -558,6 +590,12 @@ public class Interfaz {
         JTable tablaLibro = new JTable(tablaModeloLibro);
         JScrollPane scrollPaneLibro = new JScrollPane(tablaLibro);
         panel1.add(scrollPaneLibro, BorderLayout.NORTH);
+        for (Literatura l : biblioteca.getLiteratura()) {
+            if ( l instanceof Libro){
+                Libro libro = (Libro) l;
+                tablaModeloLibro.addRow(new Object[]{libro.getID(), libro.getTitulo(), libro.getAutor(), libro.getISBN(), libro.getGenero(), libro.getEditorial(), libro.isDisponible()});
+            }
+        }
 
         JPanel panel2 = new JPanel();
         panel2.setBounds(0, 200, 700, 200);
@@ -565,6 +603,13 @@ public class Interfaz {
         JTable tablaRevista = new JTable(tablaModeloRevista);
         JScrollPane scrollPaneRevista = new JScrollPane(tablaRevista);
         panel2.add(scrollPaneRevista, BorderLayout.CENTER);
+        for (Literatura l : biblioteca.getLiteratura()) {
+            if ( l instanceof Revista){
+                Revista revista = (Revista) l;
+                tablaModeloLibro.addRow(new Object[]{revista.getID(), revista.getTitulo(), revista.getEditores(), revista.getEditorial(), revista.getVolumen(), revista.isDisponible()});
+            }
+        }
+
 
         JPanel panel3 = new JPanel();
         panel3.setBounds(0, 400, 700, 200);
@@ -572,7 +617,12 @@ public class Interfaz {
         JTable tablaArticulo = new JTable(tablaModeloArticulo);
         JScrollPane scrollPaneArticulo = new JScrollPane(tablaArticulo);
         panel3.add(scrollPaneArticulo, BorderLayout.SOUTH);
-
+        for (Literatura l : biblioteca.getLiteratura()) {
+            if ( l instanceof Articulo){
+                Articulo articulo = (Articulo) l;
+                tablaModeloLibro.addRow(new Object[]{articulo.getID(), articulo.getTitulo(), articulo.getAutor(), articulo.getDoi(), articulo.getFechaPublicacion(), articulo.isDisponible()});
+            }
+        }
         
         frame.add(panel1);
         frame.add(panel2);
