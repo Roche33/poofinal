@@ -21,7 +21,7 @@ public class Interfaz {
 
         JFrame frame = new JFrame();
         frame.setTitle("Biblioteca");
-        frame.setSize(700,500);
+        frame.setSize(700,600);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(true);
         frame.setLayout(null);
@@ -109,7 +109,7 @@ public class Interfaz {
         JButton literatura;
         JFrame frame = new JFrame();
         frame.setTitle("Altas");
-        frame.setSize(700,500);
+        frame.setSize(700,600);
         frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         frame.setResizable(true);
         frame.setLayout(null);
@@ -141,7 +141,7 @@ public class Interfaz {
         JTextField campoID,camponombre,campoedad,campolibrosprestados;
 
         frame.setTitle("Alta Usuario");
-        frame.setSize(700,500);
+        frame.setSize(700,600);
         frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         frame.setResizable(true);
         frame.setLayout(null);
@@ -184,7 +184,7 @@ public class Interfaz {
         JButton articulo;
         JFrame frame = new JFrame();
         frame.setTitle("Altas");
-        frame.setSize(700,500);
+        frame.setSize(700,600);
         frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         frame.setResizable(true);
         frame.setLayout(null);
@@ -225,7 +225,7 @@ public class Interfaz {
         JTextField campoID,campotitulo,campoautor,campoisbn,campogenero,campoeditorial,campodisponible;
 
         frame.setTitle("Alta Libro");
-        frame.setSize(700,500);
+        frame.setSize(700,600);
         frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         frame.setResizable(true);
         frame.setLayout(null);
@@ -291,7 +291,7 @@ public class Interfaz {
         JTextField campoID,campotitulo,campoeditores,campoeditorial,campovolumen,campodisponible;
 
         frame.setTitle("Alta Revista");
-        frame.setSize(700,500);
+        frame.setSize(700,600);
         frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         frame.setResizable(true);
         frame.setLayout(null);
@@ -351,7 +351,7 @@ public class Interfaz {
         JTextField campoID,campotitulo,campoautor,campodoi,campofecha,campodisponible;
 
         frame.setTitle("Alta Articulo");
-        frame.setSize(700,500);
+        frame.setSize(700,600);
         frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         frame.setResizable(true);
         frame.setLayout(null);
@@ -411,7 +411,7 @@ public class Interfaz {
         JTextField campoID,campoliteratura;
 
         frame.setTitle("Prestamos");
-        frame.setSize(700,500);
+        frame.setSize(700,600);
         frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         frame.setResizable(true);
         frame.setLayout(null);
@@ -441,7 +441,7 @@ public class Interfaz {
         JTextField campoID,campoliteratura;
 
         frame.setTitle("Prestamos");
-        frame.setSize(700,500);
+        frame.setSize(700,600);
         frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         frame.setResizable(true);
         frame.setLayout(null);
@@ -472,7 +472,7 @@ public class Interfaz {
         JButton bLiteratura;
         JFrame frame = new JFrame();
         frame.setTitle("Consulta");
-        frame.setSize(700,500);
+        frame.setSize(700,600);
         frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         frame.setResizable(true);
         frame.setLayout(null);
@@ -491,7 +491,7 @@ public class Interfaz {
         mLiteratura.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                
+                mostrarLiteratura();
             }
         });
         bUsuario =  new JButton("Buscar Usuario");
@@ -499,7 +499,7 @@ public class Interfaz {
         bUsuario.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                
+                buscarUsuario();
             }
         });
         bLiteratura =  new JButton("Buscar Literatura");
@@ -518,7 +518,7 @@ public class Interfaz {
     }
     public void mostrarUsuario(){
         JFrame dataFrame = new JFrame("Usuarios Registrados");
-        dataFrame.setSize(700, 500);
+        dataFrame.setSize(700, 600);
         dataFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         dataFrame.setResizable(true);
         dataFrame.setLayout(new BorderLayout());
@@ -532,10 +532,86 @@ public class Interfaz {
         dataFrame.setVisible(true);
 
     }
+    public void mostrarLiteratura(){
+        JTable tablaRevista;
+        JTable tablaArticulo;
+        JTable tablaLibro;
+        DefaultTableModel tablaModeloRevista;
+        DefaultTableModel tablaModeloArticulo;
+        DefaultTableModel tablaModeloLibro;
+        JPanel panel1;
+        JPanel panel2;
+        JPanel panel3;
+        JFrame frame = new JFrame("Literatura Registrada");
+        frame.setSize(700, 600);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setResizable(true);
+        frame.setLayout(new GridLayout(3,1));
+        frame.getContentPane().setBackground(Color.GRAY);
+
+        panel1 = new JPanel();
+        panel1.setBounds(0, 0, 700, 200);
+        tablaModeloLibro = new DefaultTableModel(new String[]{"ID", "Titulo", "Autor", "ISBN", "Genero","Editorial","Disponible"}, 0);
+        tablaLibro = new JTable(tablaModeloLibro);
+        JScrollPane scrollPaneLibro = new JScrollPane(tablaLibro);
+        panel1.add(scrollPaneLibro, BorderLayout.NORTH);
+
+        panel2 = new JPanel();
+        panel2.setBounds(0, 200, 700, 200);
+        tablaModeloRevista = new DefaultTableModel(new String[]{"ID", "Titulo", "Editores", "Editorial", "Volumen","Disponible"}, 0);
+        tablaRevista = new JTable(tablaModeloRevista);
+        JScrollPane scrollPaneRevista = new JScrollPane(tablaRevista);
+        panel2.add(scrollPaneRevista, BorderLayout.CENTER);
+
+        panel3 = new JPanel();
+        panel3.setBounds(0, 400, 700, 200);
+        tablaModeloArticulo = new DefaultTableModel(new String[]{"ID", "Titulo", "Autor", "DOI", "Fecha","Disponible"}, 0);
+        tablaArticulo = new JTable(tablaModeloArticulo);
+        JScrollPane scrollPaneArticulo = new JScrollPane(tablaArticulo);
+        panel3.add(scrollPaneArticulo, BorderLayout.SOUTH);
+
+        
+        frame.add(panel1);
+        frame.add(panel2);
+        frame.add(panel3);
+        frame.setVisible(true);
+    }
+    public void buscarUsuario(){
+        JButton bUsuario;
+        JFrame frame = new JFrame();
+        JLabel nUsuario;
+        JTextField campoNombre;
+
+        frame.setTitle("Buscar Usuario");
+        frame.setSize(700,600);
+        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        frame.setResizable(true);
+        frame.setLayout(null);
+        frame.getContentPane().setBackground(Color.GRAY);
+
+        nUsuario = new JLabel("Nombre Usuario:");
+        nUsuario.setBounds(10, 10,150,20);
+        campoNombre = new JTextField();
+        campoNombre.setBounds(180, 10,200,20);
+
+        bUsuario =  new JButton("Buscar");
+        bUsuario.setBounds(10, 50, 100, 25);
+        bUsuario.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                
+            }
+        });
+        
+        frame.add(nUsuario);
+        frame.add(campoNombre);
+        frame.add(bUsuario);
+        frame.setVisible(true);
+    }
     public void modificar(){
         JFrame frame = new JFrame();
         frame.setTitle("Modificar");
-        frame.setSize(700,500);
+        frame.setSize(700,600);
         frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         frame.setResizable(true);
         frame.setLayout(null);
@@ -547,7 +623,7 @@ public class Interfaz {
     public void eliminar(){
         JFrame frame = new JFrame();
         frame.setTitle("Eliminar");
-        frame.setSize(700,500);
+        frame.setSize(700,600);
         frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         frame.setResizable(true);
         frame.setLayout(null);
