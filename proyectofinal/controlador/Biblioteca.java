@@ -48,9 +48,45 @@ public class Biblioteca {
         literaturas.add(literatura);
         guardarRegistros();
     }
-    public void prestamoLiteratura(){
-        //String idUsuario;
-        //String idLit;
+    public Literatura buscarLiteraturaPorId(String idliteratura){
+        for(Literatura l : literaturas){
+            if(l.getID().equals(idliteratura)){
+                return l;
+            }
+        }
+        return null;
+    }
+    public Usuario buscarUsuarioPorId(String id) {
+        for (Usuario u : usuarios) {
+            if (u.getID().equals(id)) {
+                return u;
+            }
+        }
+        return null;
+    }
+    public void prestamoLiteratura(String idusuario, String idliteratura){
+        Usuario usuario = buscarUsuarioPorId(idusuario);
+        if (usuario == null) {
+            throw new IllegalArgumentException("Usuario no encontrado.");
+        }
+
+        Literatura literatura = buscarLiteraturaPorId(idliteratura);
+        if (literatura == null) {
+            throw new IllegalArgumentException("Literatura no encontrada.");
+        }
+
+        if (!literatura.isDisponible()) {
+            throw new IllegalArgumentException("La literatura no está disponible.");
+        }
+        
+        if (usuario.getLiteratura().size() >= 2) {
+            throw new IllegalArgumentException("El usuario ya tiene el máximo de 2 libros prestados.");
+        }
+        usuario.prestarLiteratura(literatura);
+        
+
+        guardarRegistros();
+        //System.out.println("Préstamo realizado exitosamente.");
     }
     public ArrayList<Usuario> getUsuario() {
         return usuarios;

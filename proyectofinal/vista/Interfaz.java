@@ -501,13 +501,33 @@ public class Interfaz {
         JTextField campoliteratura = new JTextField();
         campoliteratura.setBounds(150, 50,100,20);
 
+        JButton bPrestar =  new JButton("Prestar");
+        bPrestar.setBounds(10, 250, 100, 25);
+        bPrestar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try{
+                    String idusuario = campoID.getText();
+                    String idliteratura = campoliteratura.getText();
+
+                    biblioteca.prestamoLiteratura(idusuario,idliteratura);
+
+                }catch(NumberFormatException ex){
+
+                }
+            }
+        });
         
         frame.add(idusuario);
         frame.add(campoID);
         frame.add(idliteratura);
         frame.add(campoliteratura);
+        frame.add(bPrestar);
 
         frame.setVisible(true);
+    }
+    public void prestamo(){
+
     }
     public void devolver(){
         JFrame frame = new JFrame();
@@ -598,7 +618,7 @@ public class Interfaz {
         dataFrame.add(scrollPane, BorderLayout.CENTER);
 
         for (Usuario u : biblioteca.getUsuario()) {
-            tablaModelo.addRow(new Object[]{u.getID(), u.getNombre(), u.getEdad(), u.getLibro()});
+            tablaModelo.addRow(new Object[]{u.getID(), u.getNombre(), u.getEdad(), u.getLiteratura()});
         }
 
         dataFrame.setVisible(true);
