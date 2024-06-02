@@ -69,25 +69,39 @@ public class Biblioteca {
         if (usuario == null) {
             throw new IllegalArgumentException("Usuario no encontrado.");
         }
-
         Literatura literatura = buscarLiteraturaPorId(idliteratura);
         if (literatura == null) {
             throw new IllegalArgumentException("Literatura no encontrada.");
         }
-
         if (!literatura.isDisponible()) {
             throw new IllegalArgumentException("La literatura no está disponible.");
         }
-        
         if (usuario.getLiteratura().size() >= 2) {
             throw new IllegalArgumentException("El usuario ya tiene el máximo de 2 libros prestados.");
         }
         usuario.prestarLiteratura(literatura);
-        
-
         guardarRegistros();
-        //System.out.println("Préstamo realizado exitosamente.");
     }
+    public void devolverLiteratura(String idusuario, String idliteratura){
+        Usuario usuario = buscarUsuarioPorId(idusuario);
+        if (usuario == null) {
+            throw new IllegalArgumentException("Usuario no encontrado.");
+        }
+        Literatura literaturaADevolver = null;
+        for (Literatura l : usuario.getLiteratura()) {
+            if (l.getID().equals(idliteratura)) {
+                literaturaADevolver = l;
+                break;
+            }
+        }
+        if (literaturaADevolver == null) {
+            throw new IllegalArgumentException("El usuario no tiene este libro en préstamo.");
+        }
+        // Devolver el libro
+        usuario.devolverLiteratura(literaturaADevolver);
+        guardarRegistros();
+    }
+
     public ArrayList<Usuario> getUsuario() {
         return usuarios;
     }

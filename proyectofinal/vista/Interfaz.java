@@ -511,9 +511,12 @@ public class Interfaz {
                     String idliteratura = campoliteratura.getText();
 
                     biblioteca.prestamoLiteratura(idusuario,idliteratura);
-
-                }catch(NumberFormatException ex){
-
+                    JOptionPane.showMessageDialog(frame, "Préstamo realizado.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                    frame.dispose();
+                }catch(IllegalArgumentException ex){
+                    JOptionPane.showMessageDialog(frame, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }catch (Exception ex) {
+                    JOptionPane.showMessageDialog(frame, "Ha ocurrido un error inesperado.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
@@ -525,9 +528,6 @@ public class Interfaz {
         frame.add(bPrestar);
 
         frame.setVisible(true);
-    }
-    public void prestamo(){
-
     }
     public void devolver(){
         JFrame frame = new JFrame();
@@ -549,12 +549,31 @@ public class Interfaz {
         JTextField campoliteratura = new JTextField();
         campoliteratura.setBounds(200, 50,100,20);
 
+        JButton bDevolver =  new JButton("Devolver");
+        bDevolver.setBounds(10, 250, 100, 25);
+        bDevolver.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try{
+                    String idusuario = campoID.getText();
+                    String idliteratura = campoliteratura.getText();
+
+                    biblioteca.devolverLiteratura(idusuario,idliteratura);
+                    JOptionPane.showMessageDialog(frame, "Literatura devuelta.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                    frame.dispose();
+                }catch(IllegalArgumentException ex){
+                    JOptionPane.showMessageDialog(frame, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }catch (Exception ex) {
+                    JOptionPane.showMessageDialog(frame, "Ha ocurrido un error inesperado.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
         
         frame.add(idusuario);
         frame.add(campoID);
         frame.add(idliteratura);
         frame.add(campoliteratura);
-
+        frame.add(bDevolver);
         frame.setVisible(true);
     }
     public void consulta(){
