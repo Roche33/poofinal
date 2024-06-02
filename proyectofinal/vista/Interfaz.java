@@ -711,8 +711,6 @@ public class Interfaz {
         JTextField campoNombre = new JTextField();
         campoNombre.setBounds(180, 10,200,20);
 
-        
-
         JButton bUsuario =  new JButton("Buscar");
         bUsuario.setBounds(10, 50, 100, 25);
         bUsuario.addActionListener(new ActionListener() {
@@ -724,29 +722,25 @@ public class Interfaz {
                     List<Usuario> usuariosEncontrados = biblioteca.buscarPorNombre(nombre);
 
                     DefaultTableModel tableModel = new DefaultTableModel(new String[]{"ID", "Nombre", "Edad", "Libros Prestados"}, 0);
-                    JTable usuarioTabla = new JTable(tableModel);
+                    JTable usuarioTable = new JTable(tableModel);
+                    JScrollPane scrollPane = new JScrollPane(usuarioTable);
+                    scrollPane.setBounds(10, 90, 680, 200); 
 
                     for (Usuario u : usuariosEncontrados) {
-                        String librosPrestados = "";
+                        StringBuilder librosPrestados = new StringBuilder();
                         for (Literatura l : u.getLiteratura()) {
-                            librosPrestados += l.getTitulo() + ", ";
+                            librosPrestados.append(l.getTitulo()).append(", ");
                         }
-                        if (!librosPrestados.isEmpty()) {
-                            librosPrestados = librosPrestados.substring(0, librosPrestados.length() - 2); // Remover la última coma y espacio
+                        if (librosPrestados.length() > 0) {
+                            librosPrestados.setLength(librosPrestados.length() - 2); // Remove last comma and space
                         }
-                        tableModel.addRow(new Object[]{u.getID(), u.getNombre(), u.getEdad(), librosPrestados});
+                        tableModel.addRow(new Object[]{u.getID(), u.getNombre(), u.getEdad(), librosPrestados.toString()});
                     }
+                    frame.getContentPane().removeAll(); // Clear existing components
+                    frame.getContentPane().add(scrollPane); // Add scrollPane to the frame
+                    frame.revalidate(); // Revalidate to refresh the frame
+                    frame.repaint(); // Repaint to update the frame
 
-                    JScrollPane scrollPane = new JScrollPane(usuarioTabla);
-                    scrollPane.setBounds(10, 50, 460, 300); // Ajustar los límites según sea necesario
-
-                    frame.getContentPane().removeAll(); // Limpiar componentes existentes
-                    frame.getContentPane().add(campoNombre); // Volver a agregar campoNombre al frame
-                    frame.getContentPane().add(bUsuario); // Volver a agregar bUsuario al frame
-                    frame.getContentPane().add(scrollPane); // Agregar el scrollPane al frame
-                    frame.revalidate(); // Revalidar para refrescar el frame
-                    frame.repaint(); // Repintar para actualizar el frame
-                    
                 }catch(Exception ex){
                     JOptionPane.showMessageDialog(frame, "Ha ocurrido un error inesperado.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
@@ -768,7 +762,7 @@ public class Interfaz {
         frame.setLayout(null);
         frame.getContentPane().setBackground(Color.GRAY);
 
-        JLabel nLiteratura = new JLabel("Nombre de la literatura:");
+        JLabel nLiteratura = new JLabel("Titulo de la literatura:");
         nLiteratura.setBounds(10, 10,150,20);
         JTextField campoLiteratura = new JTextField();
         campoLiteratura.setBounds(180, 10,200,20);
@@ -778,7 +772,54 @@ public class Interfaz {
         bLiteratura.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                
+                try{
+                    
+                    String titulo = campoLiteratura.getText();
+                    List<Literatura> literaturaEncontrada = biblioteca.buscarPorTituloLiteratura(titulo);
+
+                    DefaultTableModel tablaModeloLibro = new DefaultTableModel(new String[]{"ID", "Titulo", "Autor", "ISBN","Genero","Editorial","Disponibilidad"}, 0);
+                    JTable libroTabla = new JTable(tablaModeloLibro);
+                    JScrollPane scrollPaneLibro = new JScrollPane(libroTabla);
+                    scrollPaneLibro.setBounds(10, 0, 680, 180);
+                    for (Literatura libros : literaturaEncontrada) {
+                        if ( libros instanceof Libro){
+                            Libro libro = (Libro) libros;
+                            tablaModeloLibro.addRow(new Object[]{libro.getID(), libro.getTitulo(), libro.getAutor(), libro.getISBN(), libro.getGenero(), libro.getEditorial(), libro.isDisponible()});
+                        }
+                    }
+
+                    DefaultTableModel tablaModeloRevista = new DefaultTableModel(new String[]{"ID", "Titulo", "Editores", "Editorial","Volumen","Disponibilidad"}, 0);
+                    JTable revistaTabla = new JTable(tablaModeloRevista);
+                    JScrollPane scrollPaneRevista = new JScrollPane(revistaTabla);
+                    scrollPaneRevista.setBounds(10, 190, 680, 180); 
+                    for (Literatura revistas : literaturaEncontrada) {
+                        if ( revistas instanceof Revista){
+                            Revista revista = (Revista) revistas;
+                            tablaModeloRevista.addRow(new Object[]{revista.getID(), revista.getTitulo(), revista.getEditores(), revista.getEditorial(), revista.getVolumen(), revista.isDisponible()});
+                        }
+                    }
+
+                    DefaultTableModel tablaModeloArticulo = new DefaultTableModel(new String[]{"ID", "Titulo", "Autor", "DOI","Fecha de publicacion","Disponibilidad"}, 0);
+                    JTable articuloTabla = new JTable(tablaModeloArticulo);
+                    JScrollPane scrollPaneArticulo = new JScrollPane(articuloTabla);
+                    scrollPaneArticulo.setBounds(10, 380, 680, 180); 
+                    for (Literatura articulos : literaturaEncontrada) {
+                        if ( articulos instanceof Articulo){
+                            Articulo articulo = (Articulo) articulos;
+                            tablaModeloArticulo.addRow(new Object[]{articulo.getID(), articulo.getTitulo(), articulo.getAutor(), articulo.getDoi(), articulo.getFechaPublicacion(), articulo.isDisponible()});
+                        }
+                    }
+
+                    frame.getContentPane().removeAll(); // Clear existing components
+                    frame.getContentPane().add(scrollPaneLibro);
+                    frame.getContentPane().add(scrollPaneRevista);
+                    frame.getContentPane().add(scrollPaneArticulo); 
+                    frame.revalidate(); // Revalidate to refresh the frame
+                    frame.repaint(); // Repaint to update the frame
+
+                }catch(Exception ex){
+                    JOptionPane.showMessageDialog(frame, "Ha ocurrido un error inesperado.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
 

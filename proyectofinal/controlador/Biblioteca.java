@@ -97,7 +97,6 @@ public class Biblioteca {
         if (literaturaADevolver == null) {
             throw new IllegalArgumentException("El usuario no tiene este libro en préstamo.");
         }
-        // Devolver el libro
         usuario.devolverLiteratura(literaturaADevolver);
         guardarRegistros();
     }
@@ -109,6 +108,15 @@ public class Biblioteca {
             }
         }
         return usuariosEncontrados;
+    }
+    public List<Literatura> buscarPorTituloLiteratura(String titulo){
+        List<Literatura> literaturaEncontrada = new ArrayList<>();
+        for(Literatura l : literaturas){
+            if(l.getTitulo().equals(titulo)){
+                literaturaEncontrada.add(l);
+            }
+        }
+        return literaturaEncontrada;
     }
     public ArrayList<Usuario> getUsuario() {
         return usuarios;
