@@ -197,7 +197,7 @@ public class Interfaz {
     }
     public void altaLiteratura(){
         JFrame frame = new JFrame();
-        frame.setTitle("Altas");
+        frame.setTitle("Altas Literatura");
         frame.setSize(700,600);
         frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         frame.setResizable(true);
@@ -512,7 +512,7 @@ public class Interfaz {
     public void devolver(){
         JFrame frame = new JFrame();
 
-        frame.setTitle("Prestamos");
+        frame.setTitle("Devolver");
         frame.setSize(700,600);
         frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         frame.setResizable(true);
@@ -634,7 +634,7 @@ public class Interfaz {
         for (Literatura l : biblioteca.getLiteratura()) {
             if ( l instanceof Revista){
                 Revista revista = (Revista) l;
-                tablaModeloLibro.addRow(new Object[]{revista.getID(), revista.getTitulo(), revista.getEditores(), revista.getEditorial(), revista.getVolumen(), revista.isDisponible()});
+                tablaModeloRevista.addRow(new Object[]{revista.getID(), revista.getTitulo(), revista.getEditores(), revista.getEditorial(), revista.getVolumen(), revista.isDisponible()});
             }
         }
 
@@ -648,7 +648,7 @@ public class Interfaz {
         for (Literatura l : biblioteca.getLiteratura()) {
             if ( l instanceof Articulo){
                 Articulo articulo = (Articulo) l;
-                tablaModeloLibro.addRow(new Object[]{articulo.getID(), articulo.getTitulo(), articulo.getAutor(), articulo.getDoi(), articulo.getFechaPublicacion(), articulo.isDisponible()});
+                tablaModeloArticulo.addRow(new Object[]{articulo.getID(), articulo.getTitulo(), articulo.getAutor(), articulo.getDoi(), articulo.getFechaPublicacion(), articulo.isDisponible()});
             }
         }
         
