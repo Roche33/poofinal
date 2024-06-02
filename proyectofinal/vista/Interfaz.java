@@ -5,7 +5,7 @@ import controlador.*;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-
+import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -711,12 +711,45 @@ public class Interfaz {
         JTextField campoNombre = new JTextField();
         campoNombre.setBounds(180, 10,200,20);
 
+        
+
         JButton bUsuario =  new JButton("Buscar");
         bUsuario.setBounds(10, 50, 100, 25);
         bUsuario.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                
+                try{
+                    
+                    String nombre = campoNombre.getText();
+                    List<Usuario> usuariosEncontrados = biblioteca.buscarPorNombre(nombre);
+
+                    DefaultTableModel tableModel = new DefaultTableModel(new String[]{"ID", "Nombre", "Edad", "Libros Prestados"}, 0);
+                    JTable usuarioTabla = new JTable(tableModel);
+
+                    for (Usuario u : usuariosEncontrados) {
+                        String librosPrestados = "";
+                        for (Literatura l : u.getLiteratura()) {
+                            librosPrestados += l.getTitulo() + ", ";
+                        }
+                        if (!librosPrestados.isEmpty()) {
+                            librosPrestados = librosPrestados.substring(0, librosPrestados.length() - 2); // Remover la última coma y espacio
+                        }
+                        tableModel.addRow(new Object[]{u.getID(), u.getNombre(), u.getEdad(), librosPrestados});
+                    }
+
+                    JScrollPane scrollPane = new JScrollPane(usuarioTabla);
+                    scrollPane.setBounds(10, 50, 460, 300); // Ajustar los límites según sea necesario
+
+                    frame.getContentPane().removeAll(); // Limpiar componentes existentes
+                    frame.getContentPane().add(campoNombre); // Volver a agregar campoNombre al frame
+                    frame.getContentPane().add(bUsuario); // Volver a agregar bUsuario al frame
+                    frame.getContentPane().add(scrollPane); // Agregar el scrollPane al frame
+                    frame.revalidate(); // Revalidar para refrescar el frame
+                    frame.repaint(); // Repintar para actualizar el frame
+                    
+                }catch(Exception ex){
+                    JOptionPane.showMessageDialog(frame, "Ha ocurrido un error inesperado.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
 

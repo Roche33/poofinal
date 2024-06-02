@@ -2,7 +2,7 @@ package controlador;
 import modelo.*;
 
 import java.util.ArrayList;
-
+import java.util.List;
 public class Biblioteca {
     private ArrayList<Usuario> usuarios;
     private ArrayList<Literatura> literaturas;
@@ -101,7 +101,15 @@ public class Biblioteca {
         usuario.devolverLiteratura(literaturaADevolver);
         guardarRegistros();
     }
-
+    public List<Usuario> buscarPorNombre(String nombre){
+        List<Usuario> usuariosEncontrados = new ArrayList<>();
+        for(Usuario u : usuarios){
+            if(u.getNombre().equals(nombre)){
+                usuariosEncontrados.add(u);
+            }
+        }
+        return usuariosEncontrados;
+    }
     public ArrayList<Usuario> getUsuario() {
         return usuarios;
     }
