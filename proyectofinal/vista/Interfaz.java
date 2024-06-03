@@ -652,6 +652,7 @@ public class Interfaz {
         frame.getContentPane().setBackground(Color.GRAY);
 
         JPanel panel1 = new JPanel();
+        panel1.setBackground(Color.RED);
         panel1.setBounds(0, 0, 700, 200);
         DefaultTableModel tablaModeloLibro = new DefaultTableModel(new String[]{"ID", "Titulo", "Autor", "ISBN", "Genero","Editorial","Disponible"}, 0);
         JTable tablaLibro = new JTable(tablaModeloLibro);
@@ -663,8 +664,8 @@ public class Interfaz {
                 tablaModeloLibro.addRow(new Object[]{libro.getID(), libro.getTitulo(), libro.getAutor(), libro.getISBN(), libro.getGenero(), libro.getEditorial(), libro.isDisponible()});
             }
         }
-
         JPanel panel2 = new JPanel();
+        panel2.setBackground(Color.GRAY);
         panel2.setBounds(0, 200, 700, 200);
         DefaultTableModel tablaModeloRevista = new DefaultTableModel(new String[]{"ID", "Titulo", "Editores", "Editorial", "Volumen","Disponible"}, 0);
         JTable tablaRevista = new JTable(tablaModeloRevista);
@@ -676,9 +677,8 @@ public class Interfaz {
                 tablaModeloRevista.addRow(new Object[]{revista.getID(), revista.getTitulo(), revista.getEditores(), revista.getEditorial(), revista.getVolumen(), revista.isDisponible()});
             }
         }
-
-
         JPanel panel3 = new JPanel();
+        panel3.setBackground(Color.BLUE);
         panel3.setBounds(0, 400, 700, 200);
         DefaultTableModel tablaModeloArticulo = new DefaultTableModel(new String[]{"ID", "Titulo", "Autor", "DOI", "Fecha","Disponible"}, 0);
         JTable tablaArticulo = new JTable(tablaModeloArticulo);
@@ -845,12 +845,36 @@ public class Interfaz {
         JTextField campoliteratura = new JTextField();
         campoliteratura.setBounds(200, 40,100,20);
 
-        JButton bModificar =  new JButton("Buscar");
+        JButton bModificar =  new JButton("Modificar");
         bModificar.setBounds(10, 80, 100, 25);
         bModificar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                
+                try{
+                    String idliteratura = campoliteratura.getText();
+                    Literatura literatura = biblioteca.buscarLiteraturaPorId(idliteratura);
+
+                    if (literatura == null) {
+                        JOptionPane.showMessageDialog(frame, "Literatura no encontrada.", "Error", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+                    if (!literatura.isDisponible()) {
+                        JOptionPane.showMessageDialog(frame, "La literatura está en préstamo y no puede ser modificada.", "Error", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+                    if(literatura instanceof Libro){
+                        literatura = (Libro)literatura;
+                        //StringBuilder cadenaLibro = new StringBuilder();
+                        
+
+                    }
+                    
+                    frame.getContentPane().removeAll();
+
+
+                }catch(IllegalArgumentException ex){
+
+                }
             }
         });
 
