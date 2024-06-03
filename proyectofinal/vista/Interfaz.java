@@ -862,15 +862,111 @@ public class Interfaz {
                         JOptionPane.showMessageDialog(frame, "La literatura está en préstamo y no puede ser modificada.", "Error", JOptionPane.ERROR_MESSAGE);
                         return;
                     }
+
+                    
                     if(literatura instanceof Libro){
-                        literatura = (Libro)literatura;
+
+                        frame.getContentPane().removeAll();
+                        frame.revalidate();
+                        frame.repaint();
+
+                        JLabel datosActuales = new JLabel("Datos actuales:");
+                        datosActuales.setBounds(10, 10,150,20);
+
+                        JLabel id = new JLabel("ID: "+((Libro)literatura).getID());
+                        id.setBounds(10, 30,150,20);
+
+                        JLabel titulo = new JLabel("Titulo: "+((Libro)literatura).getTitulo());
+                        titulo.setBounds(10, 50,150,20);
+
+                        JLabel autor = new JLabel("Autor: "+((Libro)literatura).getAutor());
+                        autor.setBounds(10, 70,150,20);
+
+                        JLabel isbn = new JLabel("ISBN: "+((Libro)literatura).getISBN());
+                        isbn.setBounds(10, 90,150,20);
+
+                        JLabel genero = new JLabel("Genero: "+((Libro)literatura).getGenero());
+                        genero.setBounds(10, 110,150,20);
+
+                        JLabel editorial = new JLabel("Editorial: "+((Libro)literatura).getEditorial());
+                        editorial.setBounds(10, 130,150,20);
+                        
+                        frame.add(datosActuales);
+                        frame.add(id);
+                        frame.add(titulo);
+                        frame.add(autor);
+                        frame.add(isbn);
+                        frame.add(genero);
+                        frame.add(editorial);
                         //StringBuilder cadenaLibro = new StringBuilder();
                         
-
                     }
-                    
-                    frame.getContentPane().removeAll();
+                    if(literatura instanceof Revista){
 
+                        frame.getContentPane().removeAll();
+                        frame.revalidate();
+                        frame.repaint();
+
+                        JLabel datosActuales = new JLabel("Datos actuales:");
+                        datosActuales.setBounds(10, 10,150,20);
+
+                        JLabel id = new JLabel("ID: "+((Revista)literatura).getID());
+                        id.setBounds(10, 30,150,20);
+
+                        JLabel titulo = new JLabel("Titulo: "+((Revista)literatura).getTitulo());
+                        titulo.setBounds(10, 50,150,20);
+
+                        JLabel editores = new JLabel("Editores: "+((Revista)literatura).getEditores());
+                        editores.setBounds(10, 70,150,20);
+
+                        JLabel editorial = new JLabel("Editorial: "+((Revista)literatura).getEditorial());
+                        editorial.setBounds(10, 90,150,20);
+
+                        JLabel volumen = new JLabel("Volumen: "+((Revista)literatura).getVolumen());
+                        volumen.setBounds(10, 110,150,20);
+                        
+                        frame.add(datosActuales);
+                        frame.add(id);
+                        frame.add(titulo);
+                        frame.add(editores);
+                        frame.add(editorial);
+                        frame.add(volumen);
+                        //StringBuilder cadenaLibro = new StringBuilder();
+                        
+                    }
+                    if(literatura instanceof Articulo){
+
+                        frame.getContentPane().removeAll();
+                        frame.revalidate();
+                        frame.repaint();
+
+                        JLabel datosActuales = new JLabel("Datos actuales:");
+                        datosActuales.setBounds(10, 10,150,20);
+
+                        JLabel id = new JLabel("ID: "+((Articulo)literatura).getID());
+                        id.setBounds(10, 30,150,20);
+
+                        JLabel titulo = new JLabel("Titulo: "+((Articulo)literatura).getTitulo());
+                        titulo.setBounds(10, 50,150,20);
+
+                        JLabel autor = new JLabel("Autor: "+((Articulo)literatura).getAutor());
+                        autor.setBounds(10, 70,150,20);
+
+                        JLabel doi = new JLabel("DOI: "+((Articulo)literatura).getDoi());
+                        doi.setBounds(10, 90,150,20);
+
+                        JLabel fecha = new JLabel("Fecha de publicacion: "+((Articulo)literatura).getFechaPublicacion());
+                        fecha.setBounds(10, 110,200,20);
+                        
+                        frame.add(datosActuales);
+                        frame.add(id);
+                        frame.add(titulo);
+                        frame.add(autor);
+                        frame.add(doi);
+                        frame.add(fecha);
+                        //StringBuilder cadenaLibro = new StringBuilder();
+                        
+                    }
 
                 }catch(IllegalArgumentException ex){
 
