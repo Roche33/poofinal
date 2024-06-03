@@ -31,7 +31,7 @@ public class Interfaz {
 
         JPanel panel = new JPanel();
         panel.setBounds(0, 0, 400, 400);
-        panel.setBackground(Color.CYAN);
+        panel.setBackground(Color.GRAY);
         panel.setLayout(null);
 
 
@@ -1030,6 +1030,7 @@ public class Interfaz {
                                     ((Libro) literatura).setGenero(generos);
                                     ((Libro) literatura).setEditorial(editorials);
                                     biblioteca.actualizarLiteratura(literatura);
+                                    frame.dispose();
                                 }catch(Exception ex){
                                     JOptionPane.showMessageDialog(frame, "Error al guardar la literatura modificada.", "Error", JOptionPane.ERROR_MESSAGE);
                                 }//catch(StringVacioExcepcion ex){
@@ -1080,6 +1081,7 @@ public class Interfaz {
                                     ((Revista) literatura).setVolumen(volumens);
                                     
                                     biblioteca.actualizarLiteratura(literatura);
+                                    frame.dispose();
                                 }catch(Exception ex){
                                     JOptionPane.showMessageDialog(frame, "Error al guardar la literatura modificada.", "Error", JOptionPane.ERROR_MESSAGE);
                                 }
@@ -1127,6 +1129,7 @@ public class Interfaz {
                                     ((Articulo) literatura).setFechaPublicacion(fechas);
                                     
                                     biblioteca.actualizarLiteratura(literatura);
+                                    frame.dispose();
                                 }catch(Exception ex){
                                     JOptionPane.showMessageDialog(frame, "Error al guardar la literatura modificada.", "Error", JOptionPane.ERROR_MESSAGE);
                                 }//catch(StringVacioExcepcion ex){
