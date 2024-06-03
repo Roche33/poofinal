@@ -964,6 +964,7 @@ public class Interfaz {
                     ctitulo.setBounds(10, 50,100,20);
                     JTextField titulo = new JTextField(literatura.getTitulo());
                     titulo.setBounds(150, 50,150,20);
+
                     frame.add(cid);
                     frame.add(ctitulo);
                     frame.add(datosActuales);
@@ -1144,6 +1145,7 @@ public class Interfaz {
                         frame.add(cautor);
                         frame.add(cdoi);
                         frame.add(cfecha);
+                        frame.add(bGuardar);
                         
                     }
                     

@@ -40,11 +40,9 @@ public class Usuario implements Serializable{
     }
 
     public void devolverLiteratura(Literatura literatura) {
-        if(literaturaPrestada.remove(literatura)){
-            literatura.setDisponible(true);
-        }else{
-            throw new IllegalArgumentException("El libro no se encuentra en la lista de libros prestados del usuario.");
-        }
+        literaturaPrestada.remove(literatura);
+        literatura.setDisponible(true);
+        
     }
         
     public void prestarLiteratura(Literatura literatura){
