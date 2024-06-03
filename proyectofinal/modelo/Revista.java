@@ -3,9 +3,9 @@ package modelo;
 public class Revista extends Literatura{
     private String editores;
     private String editorial;
-    private int volumen;
+    private String volumen;
 
-    public Revista(String id, String titulo, String editores, String editorial, int volumen) {
+    public Revista(String id, String titulo, String editores, String editorial, String volumen) {
         super(id, titulo);
         this.editores = editores;
         this.editorial = editorial;
@@ -24,10 +24,10 @@ public class Revista extends Literatura{
     public void setEditorial(String editorial){
         this.editorial = editorial;
     }
-    public int getVolumen() {
+    public String getVolumen() {
         return volumen;
     }
-    public void setVolumen(int volumen){
+    public void setVolumen(String volumen){
         this.volumen = volumen;
     }
 }

@@ -365,7 +365,7 @@ public class Interfaz {
                     String titulo = campotitulo.getText();
                     String editores = campoeditores.getText();
                     String editorial = campoeditorial.getText();
-                    int volumen = Integer.parseInt(campovolumen.getText());
+                    String volumen = campovolumen.getText();
                     
         
                     Revista revista = new Revista( id, titulo, editores, editorial, volumen);
@@ -636,8 +636,15 @@ public class Interfaz {
         JScrollPane scrollPane = new JScrollPane(usuariosTabla);
         dataFrame.add(scrollPane, BorderLayout.CENTER);
 
-        for (Usuario u : biblioteca.getUsuario()) {
-            tablaModelo.addRow(new Object[]{u.getID(), u.getNombre(), u.getEdad(), u.getLiteratura()});
+        for (Usuario u : usuariosEncontrados) {
+            StringBuilder librosPrestados = new StringBuilder();
+            for (Literatura l : u.getLiteratura()) {
+                librosPrestados.append(l.getTitulo()).append(", ");
+            }
+            if (librosPrestados.length() > 0) {
+                librosPrestados.setLength(librosPrestados.length() - 2); // Remove last comma and space
+            }
+            tablaModelo.addRow(new Object[]{u.getID(), u.getNombre(), u.getEdad(), librosPrestados.toString()});
         }
 
         dataFrame.setVisible(true);
@@ -736,10 +743,10 @@ public class Interfaz {
                         }
                         tableModel.addRow(new Object[]{u.getID(), u.getNombre(), u.getEdad(), librosPrestados.toString()});
                     }
-                    frame.getContentPane().removeAll(); // Clear existing components
-                    frame.getContentPane().add(scrollPane); // Add scrollPane to the frame
-                    frame.revalidate(); // Revalidate to refresh the frame
-                    frame.repaint(); // Repaint to update the frame
+                    frame.getContentPane().removeAll(); 
+                    frame.getContentPane().add(scrollPane);
+                    frame.revalidate(); 
+                    frame.repaint(); 
 
                 }catch(Exception ex){
                     JOptionPane.showMessageDialog(frame, "Ha ocurrido un error inesperado.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -810,12 +817,12 @@ public class Interfaz {
                         }
                     }
 
-                    frame.getContentPane().removeAll(); // Clear existing components
+                    frame.getContentPane().removeAll(); 
                     frame.getContentPane().add(scrollPaneLibro);
                     frame.getContentPane().add(scrollPaneRevista);
                     frame.getContentPane().add(scrollPaneArticulo); 
-                    frame.revalidate(); // Revalidate to refresh the frame
-                    frame.repaint(); // Repaint to update the frame
+                    frame.revalidate(); 
+                    frame.repaint();  
 
                 }catch(Exception ex){
                     JOptionPane.showMessageDialog(frame, "Ha ocurrido un error inesperado.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -839,7 +846,6 @@ public class Interfaz {
         frame.setLayout(null);
         frame.getContentPane().setBackground(Color.GRAY);
 
-
         JLabel idliteratura = new JLabel("ID Literatura a modificar:");
         idliteratura.setBounds(10, 40,180,20);
         JTextField campoliteratura = new JTextField();
@@ -862,111 +868,110 @@ public class Interfaz {
                         JOptionPane.showMessageDialog(frame, "La literatura está en préstamo y no puede ser modificada.", "Error", JOptionPane.ERROR_MESSAGE);
                         return;
                     }
+                    frame.getContentPane().removeAll();
+                    frame.revalidate();
+                    frame.repaint();
 
-                    
+                    JLabel datosActuales = new JLabel("Datos actuales:");
+                    datosActuales.setBounds(10, 10,150,20);
+
+                    JLabel cid = new JLabel("ID: ");
+                    cid.setBounds(10, 30,100,20);
+                    JTextField id = new JTextField(literatura.getID());
+                    id.setBounds(150, 30,150,20);
+                    id.setEditable(false);
+
+                    JLabel ctitulo = new JLabel("Titulo: ");
+                    ctitulo.setBounds(10, 50,100,20);
+                    JTextField titulo = new JTextField(literatura.getTitulo());
+                    titulo.setBounds(150, 50,150,20);
+                    frame.add(cid);
+                    frame.add(ctitulo);
+                    frame.add(datosActuales);
+                    frame.add(id);
+                    frame.add(titulo);
                     if(literatura instanceof Libro){
 
-                        frame.getContentPane().removeAll();
-                        frame.revalidate();
-                        frame.repaint();
+                        JLabel cautor = new JLabel("Autor: ");
+                        cautor.setBounds(10, 70,100,20);
+                        JTextField autor = new JTextField(((Libro)literatura).getAutor());
+                        autor.setBounds(150, 70,150,20);
 
-                        JLabel datosActuales = new JLabel("Datos actuales:");
-                        datosActuales.setBounds(10, 10,150,20);
+                        JLabel cisbn = new JLabel("ISBN: ");
+                        cisbn.setBounds(10, 90,100,20);
+                        JTextField isbn = new JTextField(((Libro)literatura).getISBN());
+                        isbn.setBounds(150, 90,150,20);
 
-                        JLabel id = new JLabel("ID: "+((Libro)literatura).getID());
-                        id.setBounds(10, 30,150,20);
+                        JLabel cgenero = new JLabel("Genero: ");
+                        cgenero.setBounds(10, 110,100,20);
+                        JTextField genero = new JTextField(((Libro)literatura).getGenero());
+                        genero.setBounds(150, 110,150,20);
 
-                        JLabel titulo = new JLabel("Titulo: "+((Libro)literatura).getTitulo());
-                        titulo.setBounds(10, 50,150,20);
-
-                        JLabel autor = new JLabel("Autor: "+((Libro)literatura).getAutor());
-                        autor.setBounds(10, 70,150,20);
-
-                        JLabel isbn = new JLabel("ISBN: "+((Libro)literatura).getISBN());
-                        isbn.setBounds(10, 90,150,20);
-
-                        JLabel genero = new JLabel("Genero: "+((Libro)literatura).getGenero());
-                        genero.setBounds(10, 110,150,20);
-
-                        JLabel editorial = new JLabel("Editorial: "+((Libro)literatura).getEditorial());
-                        editorial.setBounds(10, 130,150,20);
+                        JLabel ceditorial = new JLabel("Editorial: ");
+                        ceditorial.setBounds(10, 130,100,20);
+                        JTextField editorial = new JTextField(((Libro)literatura).getEditorial());
+                        editorial.setBounds(150, 130,150,20);
                         
-                        frame.add(datosActuales);
-                        frame.add(id);
-                        frame.add(titulo);
                         frame.add(autor);
                         frame.add(isbn);
                         frame.add(genero);
                         frame.add(editorial);
-                        //StringBuilder cadenaLibro = new StringBuilder();
+                        frame.add(cautor);
+                        frame.add(cisbn);
+                        frame.add(cgenero);
+                        frame.add(ceditorial);
                         
-                    }
-                    if(literatura instanceof Revista){
+                    }else if(literatura instanceof Revista){
 
-                        frame.getContentPane().removeAll();
-                        frame.revalidate();
-                        frame.repaint();
+                        JLabel ceditores = new JLabel("Editores: ");
+                        ceditores.setBounds(10, 70,100,20);
+                        JTextField editores = new JTextField(((Revista)literatura).getEditores());
+                        editores.setBounds(150, 70,150,20);
 
-                        JLabel datosActuales = new JLabel("Datos actuales:");
-                        datosActuales.setBounds(10, 10,150,20);
+                        JLabel ceditorial = new JLabel("Editorial: ");
+                        ceditorial.setBounds(10, 90,100,20);
+                        JTextField editorial = new JTextField(((Revista)literatura).getEditorial());
+                        editorial.setBounds(150, 90,150,20);
 
-                        JLabel id = new JLabel("ID: "+((Revista)literatura).getID());
-                        id.setBounds(10, 30,150,20);
-
-                        JLabel titulo = new JLabel("Titulo: "+((Revista)literatura).getTitulo());
-                        titulo.setBounds(10, 50,150,20);
-
-                        JLabel editores = new JLabel("Editores: "+((Revista)literatura).getEditores());
-                        editores.setBounds(10, 70,150,20);
-
-                        JLabel editorial = new JLabel("Editorial: "+((Revista)literatura).getEditorial());
-                        editorial.setBounds(10, 90,150,20);
-
-                        JLabel volumen = new JLabel("Volumen: "+((Revista)literatura).getVolumen());
-                        volumen.setBounds(10, 110,150,20);
+                        JLabel cvolumen = new JLabel("Volumen: ");
+                        cvolumen.setBounds(10, 110,100,20);
+                        JTextField volumen = new JTextField(((Revista)literatura).getVolumen());
+                        volumen.setBounds(150, 110,150,20);
                         
-                        frame.add(datosActuales);
-                        frame.add(id);
-                        frame.add(titulo);
                         frame.add(editores);
                         frame.add(editorial);
                         frame.add(volumen);
-                        //StringBuilder cadenaLibro = new StringBuilder();
+                        frame.add(ceditores);
+                        frame.add(ceditorial);
+                        frame.add(cvolumen);
                         
                     }
-                    if(literatura instanceof Articulo){
+                    else if(literatura instanceof Articulo){
 
-                        frame.getContentPane().removeAll();
-                        frame.revalidate();
-                        frame.repaint();
+                        JLabel cautor = new JLabel("Autor: ");
+                        cautor.setBounds(10, 70,150,20);
+                        JTextField autor = new JTextField(((Articulo)literatura).getAutor());
+                        autor.setBounds(150, 70,150,20);
 
-                        JLabel datosActuales = new JLabel("Datos actuales:");
-                        datosActuales.setBounds(10, 10,150,20);
-
-                        JLabel id = new JLabel("ID: "+((Articulo)literatura).getID());
-                        id.setBounds(10, 30,150,20);
-
-                        JLabel titulo = new JLabel("Titulo: "+((Articulo)literatura).getTitulo());
-                        titulo.setBounds(10, 50,150,20);
-
-                        JLabel autor = new JLabel("Autor: "+((Articulo)literatura).getAutor());
-                        autor.setBounds(10, 70,150,20);
-
-                        JLabel doi = new JLabel("DOI: "+((Articulo)literatura).getDoi());
+                        JLabel doi = new JLabel("DOI: ");
                         doi.setBounds(10, 90,150,20);
+                        JTextField cdoi = new JTextField(((Articulo)literatura).getDoi());
+                        cdoi.setBounds(150, 90,150,20);
 
-                        JLabel fecha = new JLabel("Fecha de publicacion: "+((Articulo)literatura).getFechaPublicacion());
+                        JLabel fecha = new JLabel("Fecha de publicacion: ");
                         fecha.setBounds(10, 110,200,20);
-                        
-                        frame.add(datosActuales);
-                        frame.add(id);
-                        frame.add(titulo);
+                        JTextField cfecha = new JTextField(((Articulo)literatura).getFechaPublicacion());
+                        cfecha.setBounds(150, 110,150,20);
+
                         frame.add(autor);
                         frame.add(doi);
                         frame.add(fecha);
-                        //StringBuilder cadenaLibro = new StringBuilder();
+                        frame.add(cautor);
+                        frame.add(cdoi);
+                        frame.add(cfecha);
                         
                     }
+                    
 
                 }catch(IllegalArgumentException ex){
 
