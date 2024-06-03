@@ -15,7 +15,7 @@ public class Revista extends Literatura{
     public String getEditores() {
         return editores;
     }
-    public void setEditories(String editores){
+    public void setEditores(String editores){
         this.editores = editores;
     }
     public String getEditorial() {

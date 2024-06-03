@@ -118,6 +118,15 @@ public class Biblioteca {
         }
         return literaturaEncontrada;
     }
+    public void actualizarLiteratura(Literatura literaturaActualizada) {
+        for (int i = 0; i < literaturas.size(); i++) {
+            if (literaturas.get(i).getID().equals(literaturaActualizada.getID())) {
+                literaturas.set(i, literaturaActualizada);
+                guardarRegistros(); // Guarda los cambios en el archivo
+                return;
+            }
+        }
+    }
     public ArrayList<Usuario> getUsuario() {
         return usuarios;
     }

@@ -636,13 +636,13 @@ public class Interfaz {
         JScrollPane scrollPane = new JScrollPane(usuariosTabla);
         dataFrame.add(scrollPane, BorderLayout.CENTER);
 
-        for (Usuario u : usuariosEncontrados) {
+        for (Usuario u : biblioteca.getUsuario()) {
             StringBuilder librosPrestados = new StringBuilder();
             for (Literatura l : u.getLiteratura()) {
                 librosPrestados.append(l.getTitulo()).append(", ");
             }
             if (librosPrestados.length() > 0) {
-                librosPrestados.setLength(librosPrestados.length() - 2); // Remove last comma and space
+                librosPrestados.setLength(librosPrestados.length() - 2);
             }
             tablaModelo.addRow(new Object[]{u.getID(), u.getNombre(), u.getEdad(), librosPrestados.toString()});
         }
@@ -890,27 +890,60 @@ public class Interfaz {
                     frame.add(datosActuales);
                     frame.add(id);
                     frame.add(titulo);
+
+                    JTextField autor = new JTextField();
+                    JTextField isbn = new JTextField();
+                    JTextField genero = new JTextField();
+                    JTextField editorial = new JTextField();
+                    JTextField editores = new JTextField();
+                    JTextField volumen = new JTextField();
+                    JTextField cdoi = new JTextField();
+                    JTextField cfecha = new JTextField();
+                    
                     if(literatura instanceof Libro){
 
                         JLabel cautor = new JLabel("Autor: ");
                         cautor.setBounds(10, 70,100,20);
-                        JTextField autor = new JTextField(((Libro)literatura).getAutor());
+                        autor = new JTextField(((Libro)literatura).getAutor());
                         autor.setBounds(150, 70,150,20);
+                        String autors = autor.getText();
 
                         JLabel cisbn = new JLabel("ISBN: ");
                         cisbn.setBounds(10, 90,100,20);
-                        JTextField isbn = new JTextField(((Libro)literatura).getISBN());
+                        isbn = new JTextField(((Libro)literatura).getISBN());
                         isbn.setBounds(150, 90,150,20);
+                        String isbns = isbn.getText();
 
                         JLabel cgenero = new JLabel("Genero: ");
                         cgenero.setBounds(10, 110,100,20);
-                        JTextField genero = new JTextField(((Libro)literatura).getGenero());
+                        genero = new JTextField(((Libro)literatura).getGenero());
                         genero.setBounds(150, 110,150,20);
+                        String generos = genero.getText();
 
                         JLabel ceditorial = new JLabel("Editorial: ");
                         ceditorial.setBounds(10, 130,100,20);
-                        JTextField editorial = new JTextField(((Libro)literatura).getEditorial());
+                        editorial = new JTextField(((Libro)literatura).getEditorial());
                         editorial.setBounds(150, 130,150,20);
+                        String editorials = editorial.getText();
+
+                        JButton bGuardar =  new JButton("Guardar");
+                        bGuardar.setBounds(10, 290, 100, 25);
+                        bGuardar.addActionListener(new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                try {
+                                    literatura.setTitulo(titulo.getText());
+                                    
+                                    ((Libro) literatura).setAutor(autors);
+                                    ((Libro) literatura).setISBN(isbns);
+                                    ((Libro) literatura).setGenero(generos);
+                                    ((Libro) literatura).setEditorial(editorials);
+                                    biblioteca.actualizarLiteratura(literatura);
+                                }catch(Exception ex){
+                                    JOptionPane.showMessageDialog(frame, "Error al guardar la literatura modificada.", "Error", JOptionPane.ERROR_MESSAGE);
+                                }
+                            }
+                        });
                         
                         frame.add(autor);
                         frame.add(isbn);
@@ -920,23 +953,45 @@ public class Interfaz {
                         frame.add(cisbn);
                         frame.add(cgenero);
                         frame.add(ceditorial);
+                        frame.add(bGuardar);
                         
                     }else if(literatura instanceof Revista){
 
                         JLabel ceditores = new JLabel("Editores: ");
                         ceditores.setBounds(10, 70,100,20);
-                        JTextField editores = new JTextField(((Revista)literatura).getEditores());
+                        editores = new JTextField(((Revista)literatura).getEditores());
                         editores.setBounds(150, 70,150,20);
+                        String editoress = editores.getText();
 
                         JLabel ceditorial = new JLabel("Editorial: ");
                         ceditorial.setBounds(10, 90,100,20);
-                        JTextField editorial = new JTextField(((Revista)literatura).getEditorial());
+                        editorial = new JTextField(((Revista)literatura).getEditorial());
                         editorial.setBounds(150, 90,150,20);
+                        String editorials = editorial.getText();
 
                         JLabel cvolumen = new JLabel("Volumen: ");
                         cvolumen.setBounds(10, 110,100,20);
-                        JTextField volumen = new JTextField(((Revista)literatura).getVolumen());
+                        volumen = new JTextField(((Revista)literatura).getVolumen());
                         volumen.setBounds(150, 110,150,20);
+                        String volumens = volumen.getText();
+
+                        JButton bGuardar =  new JButton("Guardar");
+                        bGuardar.setBounds(10, 290, 100, 25);
+                        bGuardar.addActionListener(new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                try {
+                                    literatura.setTitulo(titulo.getText());
+                                    ((Revista) literatura).setEditores(editoress);
+                                    ((Revista) literatura).setEditorial(editorials);
+                                    ((Revista) literatura).setVolumen(volumens);
+                                    
+                                    biblioteca.actualizarLiteratura(literatura);
+                                }catch(Exception ex){
+                                    JOptionPane.showMessageDialog(frame, "Error al guardar la literatura modificada.", "Error", JOptionPane.ERROR_MESSAGE);
+                                }
+                            }
+                        });
                         
                         frame.add(editores);
                         frame.add(editorial);
@@ -944,24 +999,46 @@ public class Interfaz {
                         frame.add(ceditores);
                         frame.add(ceditorial);
                         frame.add(cvolumen);
+                        frame.add(bGuardar);
                         
                     }
                     else if(literatura instanceof Articulo){
 
                         JLabel cautor = new JLabel("Autor: ");
                         cautor.setBounds(10, 70,150,20);
-                        JTextField autor = new JTextField(((Articulo)literatura).getAutor());
+                        autor = new JTextField(((Articulo)literatura).getAutor());
                         autor.setBounds(150, 70,150,20);
+                        String autors = autor.getText();
 
                         JLabel doi = new JLabel("DOI: ");
                         doi.setBounds(10, 90,150,20);
-                        JTextField cdoi = new JTextField(((Articulo)literatura).getDoi());
+                        cdoi = new JTextField(((Articulo)literatura).getDoi());
                         cdoi.setBounds(150, 90,150,20);
+                        String dois = cdoi.getText();
 
                         JLabel fecha = new JLabel("Fecha de publicacion: ");
                         fecha.setBounds(10, 110,200,20);
-                        JTextField cfecha = new JTextField(((Articulo)literatura).getFechaPublicacion());
+                        cfecha = new JTextField(((Articulo)literatura).getFechaPublicacion());
                         cfecha.setBounds(150, 110,150,20);
+                        String fechas = cfecha.getText();
+
+                        JButton bGuardar =  new JButton("Guardar");
+                        bGuardar.setBounds(10, 290, 100, 25);
+                        bGuardar.addActionListener(new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                try {
+                                    literatura.setTitulo(titulo.getText());
+                                    ((Articulo) literatura).setAutor(autors);
+                                    ((Articulo) literatura).setDoi(dois);
+                                    ((Articulo) literatura).setFechaPublicacion(fechas);
+                                    
+                                    biblioteca.actualizarLiteratura(literatura);
+                                }catch(Exception ex){
+                                    JOptionPane.showMessageDialog(frame, "Error al guardar la literatura modificada.", "Error", JOptionPane.ERROR_MESSAGE);
+                                }
+                            }
+                        });
 
                         frame.add(autor);
                         frame.add(doi);
@@ -972,13 +1049,11 @@ public class Interfaz {
                         
                     }
                     
-
-                }catch(IllegalArgumentException ex){
-
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(null, "Agregar datos correctos", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
-
         frame.add(idliteratura);
         frame.add(campoliteratura);
         frame.add(bModificar);
@@ -1024,7 +1099,6 @@ public class Interfaz {
         frame.setResizable(true);
         frame.setLayout(null);
         frame.getContentPane().setBackground(Color.GRAY);
-
 
         JLabel idUsuario = new JLabel("ID Usuario:");
         idUsuario.setBounds(10, 40,180,20);
