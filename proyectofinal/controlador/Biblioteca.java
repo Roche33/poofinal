@@ -27,8 +27,13 @@ public class Biblioteca {
     public void eliminarUsuario(String idUsuario){
         for(Usuario u: usuarios){
             if(u.getID().equals(idUsuario)){
-                usuarios.remove(u);
-                break;
+                if(u.getLiteratura().size() > 0){
+                    throw new IllegalArgumentException("Usuario con literatura prestada, no se puede eliminar.");
+                }
+                if(u.getLiteratura().size() == 0){
+                    usuarios.remove(u);
+                    break;
+                }
             }
         }
         

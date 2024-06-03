@@ -1114,8 +1114,8 @@ public class Interfaz {
                     String idUsuario = campoUsuario.getText();
                     biblioteca.eliminarUsuario(idUsuario);
                     frame.dispose();
-                }catch(NumberFormatException ex){
-                    JOptionPane.showMessageDialog(null, "Agregar datos correctos", "Error", JOptionPane.ERROR_MESSAGE);
+                }catch(IllegalArgumentException ex){
+                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
