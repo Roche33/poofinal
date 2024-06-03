@@ -168,7 +168,13 @@ public class Interfaz {
             public void actionPerformed(ActionEvent e) {
                 try {
                     String id = campoID.getText();
+                    if (id.isEmpty()){
+                        throw new StringVacioExcepcion("El nombre no puede estar vacio");
+                    }
                     String nombre = camponombre.getText();
+                    if (nombre.isEmpty()){
+                        throw new StringVacioExcepcion("El nombre no puede estar vacio");
+                    }
                     int edad = Integer.parseInt(campoedad.getText());
         
                     Usuario usuario = new Usuario(id, nombre, edad);
@@ -179,8 +185,12 @@ public class Interfaz {
                     campoedad.setText("");
                     frame.dispose();
         
-                } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(null, "Agregar datos correctos", "Error", JOptionPane.ERROR_MESSAGE);
+                } catch (IllegalArgumentException ex) {
+                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }catch(StringVacioExcepcion ex){
+                    JOptionPane.showMessageDialog(null, "Quedo un campo sin rellenar", "Error", JOptionPane.ERROR_MESSAGE);
+                }catch(Exception ex){
+                    JOptionPane.showMessageDialog(null, "Quedo un campo sin rellenar", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
@@ -297,8 +307,8 @@ public class Interfaz {
                     campoeditorial.setText("");
                     frame.dispose();
         
-                } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(null, "Agregar datos correctos", "Error", JOptionPane.ERROR_MESSAGE);
+                } catch (IllegalArgumentException ex) {
+                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
@@ -379,8 +389,8 @@ public class Interfaz {
                     
                     frame.dispose();
         
-                } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(null, "Agregar datos correctos", "Error", JOptionPane.ERROR_MESSAGE);
+                } catch (IllegalArgumentException ex) {
+                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
@@ -460,8 +470,8 @@ public class Interfaz {
                     
                     frame.dispose();
         
-                } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(null, "Agregar datos correctos", "Error", JOptionPane.ERROR_MESSAGE);
+                } catch (IllegalArgumentException ex) {
+                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
@@ -1150,8 +1160,8 @@ public class Interfaz {
                     String idLiteratura = campoLiteratura.getText();
                     biblioteca.eliminarLiteratura(idLiteratura);
                     frame.dispose();
-                }catch(NumberFormatException ex){
-                    JOptionPane.showMessageDialog(null, "Agregar datos correctos", "Error", JOptionPane.ERROR_MESSAGE);
+                }catch(IllegalArgumentException ex){
+                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });

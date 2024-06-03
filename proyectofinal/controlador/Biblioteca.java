@@ -21,6 +21,11 @@ public class Biblioteca {
         archivoLiteratura.guardarRegistros(literaturas);
     }
     public void registrarUsuario(Usuario usuario){
+        for( Usuario u : usuarios){
+            if(u.getID().equals(usuario.getID())){
+                throw new IllegalArgumentException("ID de usuario repetido");
+            }
+        }
         usuarios.add(usuario);
         guardarRegistros();
     }
@@ -41,6 +46,9 @@ public class Biblioteca {
     }
     public void eliminarLiteratura(String idLiteratura){
         for(Literatura l: literaturas){
+            if(l.getID().equals(idLiteratura) && !l.isDisponible()){
+                throw new IllegalArgumentException("No es posible eliminar literatura prestada.");
+            }
             if(l.getID().equals(idLiteratura) && l.isDisponible()){
                 literaturas.remove(l);
                 break;
@@ -50,6 +58,11 @@ public class Biblioteca {
         guardarRegistros();
     }
     public void registrarLiteratura(Literatura literatura){
+        for(Literatura l : literaturas){
+            if(l.getID().equals(literatura.getID())){
+                throw new IllegalArgumentException("ID repetido");
+            }
+        }
         literaturas.add(literatura);
         guardarRegistros();
     }
@@ -103,6 +116,7 @@ public class Biblioteca {
             throw new IllegalArgumentException("El usuario no tiene este libro en préstamo.");
         }
         usuario.devolverLiteratura(literaturaADevolver);
+        literaturaADevolver.setDisponible(true);
         guardarRegistros();
     }
     public List<Usuario> buscarPorNombre(String nombre){
