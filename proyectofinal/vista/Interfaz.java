@@ -290,11 +290,29 @@ public class Interfaz {
             public void actionPerformed(ActionEvent e) {
                 try {
                     String id = campoID.getText();
+                    if (id.isEmpty()){
+                        throw new StringVacioExcepcion("No se registro algun dato");
+                    }
                     String titulo = campotitulo.getText();
+                    if (titulo.isEmpty()){
+                        throw new StringVacioExcepcion("No se registro algun dato");
+                    }
                     String autor = campoautor.getText();
+                    if (autor.isEmpty()){
+                        throw new StringVacioExcepcion("No se registro algun dato");
+                    }
                     String isbn = campoisbn.getText();
+                    if (isbn.isEmpty()){
+                        throw new StringVacioExcepcion("No se registro algun dato");
+                    }
                     String genero = campogenero.getText();
+                    if (genero.isEmpty()){
+                        throw new StringVacioExcepcion("No se registro algun dato");
+                    }
                     String editorial = campoeditorial.getText();
+                    if (editorial.isEmpty()){
+                        throw new StringVacioExcepcion("No se registro algun dato");
+                    }
         
                     Libro libro = new Libro( id, titulo,  autor,  isbn,  genero,  editorial);
                     biblioteca.registrarLiteratura(libro);
@@ -308,6 +326,8 @@ public class Interfaz {
                     frame.dispose();
         
                 } catch (IllegalArgumentException ex) {
+                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }catch(StringVacioExcepcion ex){
                     JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
@@ -372,10 +392,28 @@ public class Interfaz {
             public void actionPerformed(ActionEvent e) {
                 try {
                     String id = campoID.getText();
+                    if (id.isEmpty()){
+                        throw new StringVacioExcepcion("No se registro algun dato");
+                    }
                     String titulo = campotitulo.getText();
+                    if (titulo.isEmpty()){
+                        throw new StringVacioExcepcion("No se registro algun dato");
+                    }
                     String editores = campoeditores.getText();
+                    if (editores.isEmpty()){
+                        throw new StringVacioExcepcion("No se registro algun dato");
+                    }
                     String editorial = campoeditorial.getText();
+                    if (editorial.isEmpty()){
+                        throw new StringVacioExcepcion("No se registro algun dato");
+                    }
                     String volumen = campovolumen.getText();
+                    if (volumen.isEmpty()){
+                        throw new StringVacioExcepcion("No se registro algun dato");
+                    }
+                    if (volumen.matches("[a-zA-Z]+")){
+                        throw new Exception("No se registro algun dato");
+                    }
                     
         
                     Revista revista = new Revista( id, titulo, editores, editorial, volumen);
@@ -390,6 +428,10 @@ public class Interfaz {
                     frame.dispose();
         
                 } catch (IllegalArgumentException ex) {
+                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }catch (StringVacioExcepcion ex){
+                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }catch (Exception ex){
                     JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
@@ -453,10 +495,25 @@ public class Interfaz {
             public void actionPerformed(ActionEvent e) {
                 try {
                     String id = campoID.getText();
+                    if (id.isEmpty()){
+                        throw new StringVacioExcepcion("No se registro algun dato");
+                    }
                     String titulo = campotitulo.getText();
+                    if (titulo.isEmpty()){
+                        throw new StringVacioExcepcion("No se registro algun dato");
+                    }
                     String autor = campoautor.getText();
+                    if (autor.isEmpty()){
+                        throw new StringVacioExcepcion("No se registro algun dato");
+                    }
                     String doi = campodoi.getText();
+                    if (doi.isEmpty()){
+                        throw new StringVacioExcepcion("No se registro algun dato");
+                    }
                     String fecha = campofecha.getText();
+                    if (fecha.isEmpty()){
+                        throw new StringVacioExcepcion("No se registro algun dato");
+                    }
                     
         
                     Articulo articulo = new Articulo( id, titulo, autor, doi, fecha);
@@ -471,6 +528,8 @@ public class Interfaz {
                     frame.dispose();
         
                 } catch (IllegalArgumentException ex) {
+                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }catch(StringVacioExcepcion ex){
                     JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
@@ -734,8 +793,10 @@ public class Interfaz {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try{
-                    
                     String nombre = campoNombre.getText();
+                    if (nombre.isEmpty()){
+                        throw new StringVacioExcepcion("No se registro el nombre");
+                    }
                     List<Usuario> usuariosEncontrados = biblioteca.buscarPorNombre(nombre);
 
                     DefaultTableModel tableModel = new DefaultTableModel(new String[]{"ID", "Nombre", "Edad", "Libros Prestados"}, 0);
@@ -749,7 +810,7 @@ public class Interfaz {
                             librosPrestados.append(l.getTitulo()).append(", ");
                         }
                         if (librosPrestados.length() > 0) {
-                            librosPrestados.setLength(librosPrestados.length() - 2); // Remove last comma and space
+                            librosPrestados.setLength(librosPrestados.length() - 2); 
                         }
                         tableModel.addRow(new Object[]{u.getID(), u.getNombre(), u.getEdad(), librosPrestados.toString()});
                     }
@@ -758,8 +819,8 @@ public class Interfaz {
                     frame.revalidate(); 
                     frame.repaint(); 
 
-                }catch(Exception ex){
-                    JOptionPane.showMessageDialog(frame, "Ha ocurrido un error inesperado.", "Error", JOptionPane.ERROR_MESSAGE);
+                }catch(StringVacioExcepcion ex){
+                    JOptionPane.showMessageDialog(frame, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
@@ -792,12 +853,18 @@ public class Interfaz {
                 try{
                     
                     String titulo = campoLiteratura.getText();
+                    if (titulo.isEmpty()){
+                        throw new StringVacioExcepcion("No se registro el titulo");
+                    }
                     List<Literatura> literaturaEncontrada = biblioteca.buscarPorTituloLiteratura(titulo);
-
+                    if (literaturaEncontrada.isEmpty()){
+                        throw new Exception("No se encontro el titulo en la base de datos.");
+                    }
                     DefaultTableModel tablaModeloLibro = new DefaultTableModel(new String[]{"ID", "Titulo", "Autor", "ISBN","Genero","Editorial","Disponibilidad"}, 0);
                     JTable libroTabla = new JTable(tablaModeloLibro);
                     JScrollPane scrollPaneLibro = new JScrollPane(libroTabla);
                     scrollPaneLibro.setBounds(10, 0, 680, 180);
+
                     for (Literatura libros : literaturaEncontrada) {
                         if ( libros instanceof Libro){
                             Libro libro = (Libro) libros;
@@ -834,8 +901,10 @@ public class Interfaz {
                     frame.revalidate(); 
                     frame.repaint();  
 
+                }catch(StringVacioExcepcion ex){
+                    JOptionPane.showMessageDialog(frame, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }catch(Exception ex){
-                    JOptionPane.showMessageDialog(frame, "Ha ocurrido un error inesperado.", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(frame, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
@@ -917,24 +986,36 @@ public class Interfaz {
                         autor = new JTextField(((Libro)literatura).getAutor());
                         autor.setBounds(150, 70,150,20);
                         String autors = autor.getText();
+                        if (autors.isEmpty()){
+                            throw new StringVacioExcepcion("No se registro algun dato");
+                        }
 
                         JLabel cisbn = new JLabel("ISBN: ");
                         cisbn.setBounds(10, 90,100,20);
                         isbn = new JTextField(((Libro)literatura).getISBN());
                         isbn.setBounds(150, 90,150,20);
                         String isbns = isbn.getText();
-
+                        if (isbns.isEmpty()){
+                            throw new StringVacioExcepcion("No se registro algun dato");
+                        }
+                        
                         JLabel cgenero = new JLabel("Genero: ");
                         cgenero.setBounds(10, 110,100,20);
                         genero = new JTextField(((Libro)literatura).getGenero());
                         genero.setBounds(150, 110,150,20);
                         String generos = genero.getText();
+                        if (generos.isEmpty()){
+                            throw new StringVacioExcepcion("No se registro algun dato");
+                        }
 
                         JLabel ceditorial = new JLabel("Editorial: ");
                         ceditorial.setBounds(10, 130,100,20);
                         editorial = new JTextField(((Libro)literatura).getEditorial());
                         editorial.setBounds(150, 130,150,20);
                         String editorials = editorial.getText();
+                        if (editorials.isEmpty()){
+                            throw new StringVacioExcepcion("No se registro algun dato");
+                        }
 
                         JButton bGuardar =  new JButton("Guardar");
                         bGuardar.setBounds(10, 290, 100, 25);
@@ -951,7 +1032,9 @@ public class Interfaz {
                                     biblioteca.actualizarLiteratura(literatura);
                                 }catch(Exception ex){
                                     JOptionPane.showMessageDialog(frame, "Error al guardar la literatura modificada.", "Error", JOptionPane.ERROR_MESSAGE);
-                                }
+                                }//catch(StringVacioExcepcion ex){
+                                    //JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                                //}
                             }
                         });
                         
@@ -1046,7 +1129,9 @@ public class Interfaz {
                                     biblioteca.actualizarLiteratura(literatura);
                                 }catch(Exception ex){
                                     JOptionPane.showMessageDialog(frame, "Error al guardar la literatura modificada.", "Error", JOptionPane.ERROR_MESSAGE);
-                                }
+                                }//catch(StringVacioExcepcion ex){
+                                    //JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                                //}
                             }
                         });
 
@@ -1059,8 +1144,8 @@ public class Interfaz {
                         
                     }
                     
-                } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(null, "Agregar datos correctos", "Error", JOptionPane.ERROR_MESSAGE);
+                } catch (StringVacioExcepcion ex) {
+                    JOptionPane.showMessageDialog(frame, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
@@ -1114,6 +1199,7 @@ public class Interfaz {
         idUsuario.setBounds(10, 40,180,20);
         JTextField campoUsuario = new JTextField();
         campoUsuario.setBounds(150, 40,100,20);
+        
 
         JButton bUsuario =  new JButton("Eliminar");
         bUsuario.setBounds(10, 80, 100, 25);
@@ -1122,9 +1208,14 @@ public class Interfaz {
             public void actionPerformed(ActionEvent e) {
                 try{
                     String idUsuario = campoUsuario.getText();
+                    if (idUsuario.isEmpty()){
+                        throw new StringVacioExcepcion("No se registro algun dato");
+                    }
                     biblioteca.eliminarUsuario(idUsuario);
                     frame.dispose();
                 }catch(IllegalArgumentException ex){
+                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }catch(StringVacioExcepcion ex){
                     JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
@@ -1158,9 +1249,14 @@ public class Interfaz {
             public void actionPerformed(ActionEvent e) {
                 try{
                     String idLiteratura = campoLiteratura.getText();
+                    if (idLiteratura.isEmpty()){
+                        throw new StringVacioExcepcion("No se registro algun dato");
+                    }
                     biblioteca.eliminarLiteratura(idLiteratura);
                     frame.dispose();
                 }catch(IllegalArgumentException ex){
+                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }catch(StringVacioExcepcion ex){
                     JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
